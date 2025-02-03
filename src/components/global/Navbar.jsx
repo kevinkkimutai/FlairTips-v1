@@ -16,10 +16,10 @@ export default function Navbar() {
     useEffect(() => {
       const fetchUser = async () => {
         const accessToken = Cookies.get('access_token');
-        if (!accessToken) {
-          toast.error("Access token not found. Please log in.");
-          return;
-        }
+        // if (!accessToken) {
+        //   toast.error("Access token not found. Please log in.");
+        //   return;
+        // }
   
         const requestBody = {
           request: {
@@ -35,7 +35,7 @@ export default function Navbar() {
           console.log("User details fetched", response);
           dispatch(response.data);
         } catch (error) {
-          toast.error("Please log in.");
+          // toast.error("Please log in.");
         }
       };
   
@@ -108,9 +108,9 @@ export default function Navbar() {
                 </svg>
               </button>
 
-              <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
+              <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-green-950 max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
                 <li className="mb-6 hidden max-lg:block">
-                  <Link href="/">
+                  <Link href="/" onClick={closeMenu}>
                     <p
                       
                       className="w-36 font-bold"
@@ -121,7 +121,8 @@ export default function Navbar() {
                   <li className=" max-lg:py-2 relative max-lg:border-b" key={index}>
                     <Link
                       href={nav.href}
-                      className="text-white text-[14px] md:text-[16px] font-[700] block md:hover:after:absolute md:after:bg-green-500  md:after:w-0 md:hover:after:w-full md:hover:after:h-[2px] md:after:block  md:after:-bottom-2 md:after:transition-all md:after:duration-300"
+                      onClick={closeMenu}
+                      className="text-white  text-[14px] md:text-[16px] font-[700] block md:hover:after:absolute md:after:bg-green-500  md:after:w-0 md:hover:after:w-full md:hover:after:h-[2px] md:after:block  md:after:-bottom-2 md:after:transition-all md:after:duration-300"
                     >
                       {nav.label}
                     </Link>
@@ -171,7 +172,7 @@ export default function Navbar() {
                     />
                   </svg>
                 </a>
-                <ul className="absolute top-12 max-lg:top-8 right-0 z-50 block space-y-2 shadow-lg bg-green-800 max-h-0 overflow-hidden min-w-[150px] max-w-[230px] group-hover:opacity-100 group-hover:max-h-[700px] px-6 group-hover:pb-4 group-hover:pt-6 transition-all duration-[400ms]">
+                <ul className="absolute top-12 max-lg:top-16 right-0 z-50 block space-y-2 shadow-lg bg-green-800 max-h-0 overflow-hidden min-w-[150px] max-w-[230px] group-hover:opacity-100 group-hover:max-h-[700px] px-6 group-hover:pb-4 group-hover:pt-6 transition-all duration-[400ms]">
                      <li className="border-b py-3">
                     <a
                       href="/profile"

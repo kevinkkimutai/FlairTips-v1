@@ -107,8 +107,9 @@ export default function PublicPredictions({ activeDate, setPagenumber, pagenumbe
                           <p className="text-[13px] max-lg:text-[12px]">
                             {match.home_score || "- : -"}
                           </p>
+                          <span className={`${match.home_score ? "" : "hidden"} px-1`}>-</span>
                           <p className="text-[13px] max-lg:text-[12px]">
-                            {match.away_score || ""}
+                           {match.away_score || ""}
                           </p>
                         </div>
 

@@ -81,7 +81,7 @@ export default function PopularMatches() {
             Object.entries(nestedObj || {}).map(([innerKey, matches]) =>
               Array.isArray(matches)
                 ? matches
-                    .slice(0, 4)
+                    .slice(0, 2)
                     .map((match) => (
                       <div
                         key={match.match_id}
