@@ -3,17 +3,17 @@ import { apiSlice } from "../../services/api";
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createUser: builder.mutation({
-      query: (userData) => ({
-        url: "/register",
+      query: (requestBody) => ({
+        url: "/auth/register",
         method: "POST",
-        body: { ...userData },
+        body: { ...requestBody },
       }),
     }),
     loginUser: builder.mutation({
-      query: (userData) => ({
-        url: "/login",
+      query: (requestBody) => ({
+        url: "/auth/login",
         method: "POST",
-        body: { ...userData },
+        body: { ...requestBody },
       }),
     }),
     getAllUsers: builder.query({
@@ -35,8 +35,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
 
     updateUserById: builder.mutation({
-      query: ({ userId, userData }) => ({
-        url: `/users/${userId}`,
+      query: ({ userData }) => ({
+        url: `/users/update_user_details`,
         method: "PUT",
         body: { ...userData },
       }),
@@ -48,17 +48,18 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     forgetPassword: builder.mutation({
-      query: (email) => ({
-        url: "/forgot-password",
+      query: (requestBody ) => ({
+        url: "/auth/forgot_password",
         method: "POST",
-        body: { email },
+        body: { ...requestBody },
       }),
     }),
+    
     resetPassword: builder.mutation({
-      query: (resetData) => ({
-        url: "/reset-password",
+      query: (requestBody) => ({
+        url: "/auth/reset_password",
         method: "POST",
-        body: { ...resetData },
+        body: { ...requestBody },
       }),
     }),
   

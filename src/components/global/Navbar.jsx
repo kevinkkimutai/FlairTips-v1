@@ -1,9 +1,12 @@
 "use client";
+import { selectUser } from "@/redux/reducers/AuthReducers";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+    const user = useSelector(selectUser);
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -100,7 +103,9 @@ export default function Navbar() {
                   href="javascript:void(0)"
                   className="hover:text-[#007bff] hover:fill-[#007bff] text-gray-800 text-[15px] flex items-center"
                 >
-                  User
+            {user?.user?.user?.first_name || "User"}
+
+
                   <svg
                     className="w-6 h-6 ms-2 text-gray-800"
                     aria-hidden="true"

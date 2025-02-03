@@ -3,11 +3,11 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:2200/api/",
+  baseUrl: "https://api.flairtips.com/api/v1/",
   // baseUrl:"https://shoe-lnwb.onrender.com/v1/",
-  credentials: "include",
+  // credentials: "include",
   prepareHeaders: (headers, { getState }) => {
-    const token = getState().auth.token;
+    const token = getState().auth.access_token;
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     }
@@ -19,7 +19,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.originalStatus === 403) {
-    const refreshToken = api.getState().auth.token;
+    const refreshToken = api.getState().auth.access_token;
     if (refreshToken) {
       // Implement your refresh token logic here
       // Example: const refreshResult = await baseQuery("/refresh", api, extraOptions);
