@@ -1,12 +1,46 @@
 "use client";
+import { useGetCurrentUserMutation } from "@/redux/actions/authActions";
 import { selectUser } from "@/redux/reducers/AuthReducers";
 import Link from "next/link";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie"; 
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
     const user = useSelector(selectUser);
+    const [currentUser] = useGetCurrentUserMutation();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+      const fetchUser = async () => {
+        const accessToken = Cookies.get('access_token');
+        if (!accessToken) {
+          toast.error("Access token not found. Please log in.");
+          return;
+        }
+  
+        const requestBody = {
+          request: {
+            request_id: Date.now(),
+            data: {
+              access_token: accessToken,
+            },
+          },
+        };
+  
+        try {
+          const response = await currentUser(requestBody).unwrap();
+          console.log("User details fetched", response);
+          dispatch(response.data);
+        } catch (error) {
+          toast.error("Please log in.");
+        }
+      };
+  
+      fetchUser();
+    }, [currentUser, dispatch]);
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -76,13 +110,12 @@ export default function Navbar() {
 
               <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
                 <li className="mb-6 hidden max-lg:block">
-                  <a href="#">
-                    <img
-                      src="https://readymadeui.com/readymadeui.svg"
-                      alt="logo"
-                      className="w-36"
-                    />
-                  </a>
+                  <Link href="/">
+                    <p
+                      
+                      className="w-36 font-bold"
+                    > FlairTips</p>
+                  </Link>
                 </li>
                 {navlinks.map((nav, index) => (
                   <li className=" max-lg:py-2 relative max-lg:border-b" key={index}>

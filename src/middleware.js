@@ -13,13 +13,13 @@ export function middleware(request) {
   const token = request.cookies.get('access_token')?.value;
 
   // If there's no token and the route is not public, redirect to login
-  if (!token && !isPublicRoute) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
+  // if (!token && !isPublicRoute) {
+  //   return NextResponse.redirect(new URL('/login', request.url));
+  // }
 
   // If the user is authenticated and tries to access login or other public auth pages, redirect to dashboard (home)
   if (token && (pathname === '/login' || pathname === '/forgot-password' || pathname === '/reset-password')) {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL('/all-matches', request.url));
   }
 
   // Proceed with the request if no redirects are triggered

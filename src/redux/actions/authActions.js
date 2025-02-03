@@ -24,9 +24,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: (userId) => `/users/${userId}`,
     }),
     getCurrentUser: builder.mutation({
-      query: () => ({
-        url: "/currentuser",
-        method: "GET",
+      query: (requestBody) => ({
+        url: "/users/get_user_by_token",
+        method: "POST",
+        body: { ...requestBody },
       }),
     }),
     getUser: builder.query({

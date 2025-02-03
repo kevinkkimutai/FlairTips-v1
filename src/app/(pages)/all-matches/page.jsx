@@ -5,7 +5,11 @@ import CountryList from '@/components/allmatches/CountryList';
 import MatchesNavigation from '@/components/allmatches/MatchesNavigation';
 import MatchesSection from '@/components/allmatches/MatchesSection';
 import PopularMatches from '@/components/allmatches/PopularMatches';
-import React, { useEffect, useRef, useState } from 'react';
+import PublicPredictions from '@/components/allmatches/PublicPredictions';
+import { useGetPublicPredictionsMutation } from '@/redux/actions/publicPredictionsActions';
+import { setPublicPredictions } from '@/redux/reducers/publicPredictionsReducers';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Page() {
   const dates = [];
@@ -47,47 +51,81 @@ export default function Page() {
   };
 
   const [activeDate, setActiveDate] = useState(formatDate(today));
+  const [publicPredictions] = useGetPublicPredictionsMutation();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [pagenumber, setPagenumber] = useState(1);
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const requestBody = {
+          request: {
+            request_id: Date.now(),
+            data: {
+              date: "today",
+              type: "all",
+              page: pagenumber,
+              country: "",
+            },
+          },
+        };
+
+        // Call the mutation with the request body
+        const response = await publicPredictions(requestBody).unwrap();
+        console.log('Public Predictions:', response);
+        dispatch(setPublicPredictions(response));
+        setLoading(false);
+      } catch (err) {
+        console.error('Failed to fetch public predictions:', err);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [publicPredictions, dispatch]);
+
+  if (loading) {
+    return <div className='flex items-center justify-center h-screen'>Loading...</div>;
+  }
 
   return (
     <div className="py-5 lg:py-10">
-     <div className=''>
-     <MatchesNavigation
-        activeDate={activeDate}
-        setActiveDate={setActiveDate}
-        dates={dates}
-        range={range}
-        formatDate={formatDate}
-      />
-     </div>
+      <div className="">
+        <MatchesNavigation
+          activeDate={activeDate}
+          setActiveDate={setActiveDate}
+          dates={dates}
+          range={range}
+          formatDate={formatDate}
+        />
+      </div>
 
-     <div className='flex gap-4 mt-5 md:mt-10'>
-      {/* sidebar */}
-     <div className='w-[20%]  p-2'>
-     <CountryList />
-     </div>
-     {/* mid section */}
-     <div className='flex-1  p-2'>
-     <MatchesSection />
+      <div className="flex gap-4 mt-5 md:mt-10">
+        {/* sidebar */}
+        <div className="w-[20%] max-md:hidden p-2">
+          <CountryList />
+        </div>
+        {/* mid section */}
+        <div className="flex-1  p-2">
+          <MatchesSection />
 
-     {/* popular game */}
-     <div className='mt-5 md:mt-6'>
-      <h2 className='mb-2 font-bold text-lg'>
-        Popular Matches
-      </h2>
-      <PopularMatches />
-     </div>
+          {/* popular game */}
+          <div className="mt-5 md:mt-6">
+            <h2 className="mb-2 font-bold text-lg">Popular Matches</h2>
+            <PopularMatches />
+          </div>
 
-     {/* rest of games */}
-     <div className='mt-5 md:mt-6'>
-     <h2 className='mb-2 font-bold text-lg'>
-       All MAtches
-      </h2>
-      <AllMatches />
-     </div>
-
-
-     </div>
-     </div>
+          {/* rest of games */}
+          <div className="mt-5 md:mt-6">
+            <h2 className="mb-2 font-bold text-lg">All Matches</h2>
+            {/* Filtered public predictions */}
+            <PublicPredictions  activeDate={activeDate} setPagenumber={setPagenumber} pagenumber={pagenumber} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
