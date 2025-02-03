@@ -20,7 +20,7 @@ export default function AllMatches() {
   return (
     <div>
        {matches.map((faq, index) => (
-            <div key={index} className="accordion bg-blue-200 rounded-md" role="accordion">
+            <div key={index} className="accordion bg-green-200 rounded-md" role="accordion">
               <button
                 type="button"
                 onClick={() => toggleAccordion(index)}
@@ -76,7 +76,7 @@ export default function AllMatches() {
                   openMatches.includes(index) ? 'masx-h-[1000px] p-2' : 'max-h-0'
                 }`}
               >
-                <p className="text-[14px] lg:text-[16px] font-[400] text-gray-600  bg-blue-500 rounded-md p-1">
+                <p className="text-[14px] lg:text-[16px] font-[400] text-gray-600  bg-green-500 rounded-md p-1">
                   {faq.answer}
                 </p>
               </div>

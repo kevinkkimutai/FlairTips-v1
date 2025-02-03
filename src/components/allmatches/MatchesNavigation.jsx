@@ -26,7 +26,7 @@ export default function MatchesNavigation({ activeDate, setActiveDate, dates, ra
             <div
               key={index}
               className={`max-md:min-w-[6.5rem] min-w-[8rem] flex justify-center 
-                ${isActive ? 'bg-green-500' : 'bg-blue-950'} hover:bg-blue-800 
+                ${isActive ? 'bg-green-700' : 'bg-green-900'} hover:bg-green-700 
                 text-white p-2 rounded-lg cursor-pointer`}
               ref={dateLabel?.label === 'Today' ? todayRef : null} 
               onClick={() => {

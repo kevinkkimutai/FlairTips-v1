@@ -63,7 +63,7 @@ export default function Page() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                  className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-green-500"
                   placeholder="Enter Email"
                 />
               </div>
@@ -76,7 +76,7 @@ export default function Page() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                    className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-green-500"
                     placeholder="Enter Password"
                   />
                   {showPassword ? (
@@ -126,7 +126,7 @@ export default function Page() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <Link
                   href="/forgot-password"
-                  className="text-blue-600 hover:underline font-semibold"
+                  className="text-green-500 hover:underline font-semibold"
                 >
                   Forgot your password?
                 </Link>
@@ -135,7 +135,7 @@ export default function Page() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none disabled:opacity-50"
+                  className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-green-500 hover:bg-green-700 focus:outline-none disabled:opacity-50"
                 >
                   {loading ? "Signing in..." : "Sign in"}
                 </button>
@@ -144,7 +144,7 @@ export default function Page() {
                 Don't have an account?{" "}
                 <Link
                   href="/register"
-                  className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"
+                  className="text-green-500 hover:underline ml-1 whitespace-nowrap font-semibold"
                 >
                   Register here
                 </Link>

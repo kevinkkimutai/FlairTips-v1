@@ -157,7 +157,7 @@ export default function Page() {
               <div className="!mt-8">
                 <button
                   type="submit"
-                  className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                  className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-green-500 hover:bg-green-700 focus:outline-none"
                 >
                   Register
                 </button>
@@ -166,7 +166,7 @@ export default function Page() {
                 Already have an account?{" "}
                 <Link
                   href="/login"
-                  className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"
+                  className="text-green-500 hover:underline ml-1 whitespace-nowrap font-semibold"
                 >
                   Login here
                 </Link>

@@ -15,7 +15,7 @@ export default function PublicPredictions({ activeDate, setPagenumber, pagenumbe
   return (
     <div className="p- flex flex-col gap-4">
       {/* Header Row */}
-      <div className="rounded-t-lg px-2 py-4 flex w-full sticky top-0 flex-grow shadow justify-between text-center text-sm items-center gap-4 bg-blue-950 text-white">
+      <div className="rounded-t-lg px-2 py-4 flex w-full sticky top-0 flex-grow shadow justify-between text-center text-sm items-center gap-4 bg-green-900 text-white">
         <div className="md:flex-1 text-start">Time</div>
         <div className="w-[30%] max-md:w-[50%]">Team</div>
         <div className=" w-[30%] max-md:w-auto">Score</div>
@@ -47,7 +47,7 @@ export default function PublicPredictions({ activeDate, setPagenumber, pagenumbe
                   .map((match) => (
                     <div
                       key={match.match_id}
-                      className="rounded-md p-2 flex w-full flex-grow shadow justify-between text-center text-sm items-center gap-4 bg-white"
+                      className="rounded-md p-2 flex w-full flex-grow shadow-[0_2px_10px_-3px_rgba(34,197,94,0.3)] justify-between text-center text-sm items-center gap-4 bg-white"
                     >
                       {/* Fixture Date and Time */}
                       <div className="md:flex-1 flex flex-col items-center justify-between text-[13px] font-medium max-lg:text-[12px]">
@@ -149,14 +149,14 @@ export default function PublicPredictions({ activeDate, setPagenumber, pagenumbe
       {/* Pagination buttons */}
       <div className="mt-4 flex justify-center gap-4">
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className="px-4 py-2 bg-green-500 text-white rounded"
           onClick={() => handlePageChange(pagenumber - 1)}
           disabled={pagenumber <= 1}
         >
           Previous
         </button>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className="px-4 py-2 bg-green-500 text-white rounded"
           onClick={() => handlePageChange(pagenumber + 1)}
         >
           Next

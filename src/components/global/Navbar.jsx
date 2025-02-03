@@ -62,12 +62,12 @@ export default function Navbar() {
       href: "/about",
     },
     {
-      label: "Contact",
-      href: "/contact",
+      label: "Contact Us",
+      href: "/contact-us",
     },
   ];
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-green-900 text-white">
       <div className="max-w-[1280px] mx-auto relative">
         <header className="flex  py-4 max-2xl:px-4  font-sans min-h-[70px] tracking-wide relative z-50">
           <div className="flex flex-wrap items-center justify-between gap-4 w-full max-w-screen-xl mx-auto">
@@ -121,7 +121,7 @@ export default function Navbar() {
                   <li className=" max-lg:py-2 relative max-lg:border-b" key={index}>
                     <Link
                       href={nav.href}
-                      className="text-[#1B1D22] text-[14px] md:text-[16px] font-[700] block md:hover:after:absolute md:after:bg-green-500  md:after:w-0 md:hover:after:w-full md:hover:after:h-[2px] md:after:block  md:after:-bottom-2 md:after:transition-all md:after:duration-300"
+                      className="text-white text-[14px] md:text-[16px] font-[700] block md:hover:after:absolute md:after:bg-green-500  md:after:w-0 md:hover:after:w-full md:hover:after:h-[2px] md:after:block  md:after:-bottom-2 md:after:transition-all md:after:duration-300"
                     >
                       {nav.label}
                     </Link>
@@ -134,13 +134,13 @@ export default function Navbar() {
               <div className="group  max-lg:px-3 max-lg:py-3 relative max-md:hidden">
                 <a
                   href="javascript:void(0)"
-                  className="hover:text-[#007bff] hover:fill-[#007bff] text-gray-800 text-[15px] flex items-center"
+                  className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-white text-[15px] flex items-center"
                 >
             {user?.user?.user?.first_name || "User"}
 
 
                   <svg
-                    className="w-6 h-6 ms-2 text-gray-800"
+                    className="w-6 h-6 ms-2 text-white"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -159,8 +159,9 @@ export default function Navbar() {
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16px"
+                    stroke="currentColor"
                     height="16px"
-                    className="ml-1 inline-block"
+                    className="ml-1 inline-block text-white"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -170,11 +171,11 @@ export default function Navbar() {
                     />
                   </svg>
                 </a>
-                <ul className="absolute top-7 max-lg:top-8 right-0 z-50 block space-y-2 shadow-lg bg-white max-h-0 overflow-hidden min-w-[150px] max-w-[230px] group-hover:opacity-100 group-hover:max-h-[700px] px-6 group-hover:pb-4 group-hover:pt-6 transition-all duration-[400ms]">
+                <ul className="absolute top-12 max-lg:top-8 right-0 z-50 block space-y-2 shadow-lg bg-green-800 max-h-0 overflow-hidden min-w-[150px] max-w-[230px] group-hover:opacity-100 group-hover:max-h-[700px] px-6 group-hover:pb-4 group-hover:pt-6 transition-all duration-[400ms]">
                      <li className="border-b py-3">
                     <a
                       href="/profile"
-                      className="hover:text-[#007bff] hover:fill-[#007bff] text-gray-800 text-[15px] flex items-center"
+                      className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-white text-[15px] flex items-center"
                     >
                       <svg
                         className="w-6 h-6 fill-current me-2"
@@ -197,7 +198,7 @@ export default function Navbar() {
                   <li className="border-b py-3">
                     <a
                       href="/login"
-                      className="hover:text-[#007bff] hover:fill-[#007bff] text-gray-800 text-[15px] flex items-center"
+                      className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-white text-[15px] flex items-center"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

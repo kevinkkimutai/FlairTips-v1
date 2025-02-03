@@ -62,7 +62,7 @@ export default function Page() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                    className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-green-500"
                     placeholder="Enter Your Email"
                   />
                   <svg
@@ -83,7 +83,7 @@ export default function Page() {
               <div className="!mt-8">
                 <button
                   type="submit"
-                  className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                  className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-green-500 hover:bg-green-700 focus:outline-none"
                 >
                   Submit
                 </button>
@@ -92,7 +92,7 @@ export default function Page() {
                 Back to Home.{" "}
                 <Link
                   href="/"
-                  className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"
+                  className="text-green-500 hover:underline ml-1 whitespace-nowrap font-semibold"
                 >
                   Home
                 </Link>

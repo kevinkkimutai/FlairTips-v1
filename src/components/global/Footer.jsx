@@ -5,7 +5,7 @@ import React from 'react'
 export default function Footer() {
   return (
     <div className='w-full'>
-   <footer className="overflow-hidden bg-blue-950  pt-12 pb-6 px-4 md:px-10 font-sans tracking-wide relative">
+   <footer className="overflow-hidden bg-green-900  pt-12 pb-6 px-4 md:px-10 font-sans tracking-wide relative">
       <div className="max-w-screen-xl mx-auto ">
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
@@ -99,7 +99,7 @@ export default function Footer() {
           <ul className="flex flex-wrap justify-center gap-6 ">
           <li>
             <Link href='#'>
-              <svg xmlns="http://www.w3.org/2000/svg" className="fill-blue-600 w-6 h-6" viewBox="0 0 49.652 49.652">
+              <svg xmlns="http://www.w3.org/2000/svg" className="fill-green-500 w-6 h-6" viewBox="0 0 49.652 49.652">
                 <path d="M24.826 0C11.137 0 0 11.137 0 24.826c0 13.688 11.137 24.826 24.826 24.826 13.688 0 24.826-11.138 24.826-24.826C49.652 11.137 38.516 0 24.826 0zM31 25.7h-4.039v14.396h-5.985V25.7h-2.845v-5.088h2.845v-3.291c0-2.357 1.12-6.04 6.04-6.04l4.435.017v4.939h-3.219c-.524 0-1.269.262-1.269 1.386v2.99h4.56z" data-original="#000000" />
               </svg>
             </Link>
