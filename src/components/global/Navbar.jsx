@@ -132,7 +132,7 @@ export default function Navbar() {
             </div>
 
             <div className="flex  items-center max-lg:ml-auto space-x-4 relative">
-              <div className="group  max-lg:px-3 max-lg:py-3 relative max-md:hidden">
+              <div className="group  max-lg:px-3 max-lg:py-3 relative max-d:hidden">
                 <a
                   href="javascript:void(0)"
                   className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-white text-[15px] flex items-center"
@@ -215,7 +215,7 @@ export default function Navbar() {
                 </ul>
               </div>
 
-              <button onClick={toggleMenu} className="lg:hidden">
+              <button onClick={toggleMenu} className="lg:hidden max-md:hidden ">
                 <svg
                   className="w-7 h-7"
                   fill="#000"

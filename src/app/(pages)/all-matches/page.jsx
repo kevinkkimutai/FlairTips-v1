@@ -6,7 +6,9 @@ import MatchesNavigation from '@/components/allmatches/MatchesNavigation';
 import MatchesSection from '@/components/allmatches/MatchesSection';
 import PopularMatches from '@/components/allmatches/PopularMatches';
 import PublicPredictions from '@/components/allmatches/PublicPredictions';
+import { useGetCountriesMutation } from '@/redux/actions/countryActions';
 import { useGetPublicPredictionsMutation } from '@/redux/actions/publicPredictionsActions';
+import { setCountries } from '@/redux/reducers/countryReducers';
 import { setPublicPredictions } from '@/redux/reducers/publicPredictionsReducers';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,6 +54,7 @@ export default function Page() {
 
   const [activeDate, setActiveDate] = useState(formatDate(today));
   const [publicPredictions] = useGetPublicPredictionsMutation();
+  const[getCountries] = useGetCountriesMutation();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [pagenumber, setPagenumber] = useState(1);
@@ -72,11 +75,23 @@ export default function Page() {
             },
           },
         };
+        const countryRequestBody = {
+          request: {
+            request_id: Date.now(),
+            data: {
+              
+            },
+          },
+        };
 
+
+        // get countrires
+        const country = await getCountries(countryRequestBody).unwrap();
+        dispatch(setCountries(country));
         // Call the mutation with the request body
         const response = await publicPredictions(requestBody).unwrap();
-        console.log('Public Predictions:', response);
-        dispatch(setPublicPredictions(response));
+        console.log('Public Predictions 222:', response.data);
+        dispatch(setPublicPredictions(response.data));
         setLoading(false);
       } catch (err) {
         console.error('Failed to fetch public predictions:', err);
@@ -85,7 +100,7 @@ export default function Page() {
     };
 
     fetchData();
-  }, [publicPredictions, dispatch]);
+  }, [publicPredictions, getCountries, dispatch]);
 
   if (loading) {
     return <div className='flex items-center justify-center h-screen'>Loading...</div>;
@@ -105,7 +120,7 @@ export default function Page() {
 
       <div className="flex gap-4 mt-5 md:mt-10">
         {/* sidebar */}
-        <div className="w-[20%] max-md:hidden p-2">
+        <div className="w-[20%] max-md:hidden ">
           <CountryList />
         </div>
         {/* mid section */}
@@ -113,7 +128,7 @@ export default function Page() {
           <MatchesSection />
 
           {/* popular game */}
-          <div className="mt-5 md:mt-6">
+          <div className="mt-5 md:mt-6 hidden">
             <h2 className="mb-2 font-bold text-lg">Popular Matches</h2>
             <PopularMatches />
           </div>
@@ -122,7 +137,8 @@ export default function Page() {
           <div className="mt-5 md:mt-6">
             <h2 className="mb-2 font-bold text-lg">All Matches</h2>
             {/* Filtered public predictions */}
-            <PublicPredictions  activeDate={activeDate} setPagenumber={setPagenumber} pagenumber={pagenumber} />
+            <AllMatches activeDate={activeDate} setPagenumber={setPagenumber} pagenumber={pagenumber} />
+            {/* <PublicPredictions  activeDate={activeDate} setPagenumber={setPagenumber} pagenumber={pagenumber} /> */}
           </div>
         </div>
       </div>

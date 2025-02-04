@@ -17,9 +17,10 @@ export default function PublicPredictions({ activeDate, setPagenumber, pagenumbe
       {/* Header Row */}
       <div className="rounded-t-lg px-2 py-4 flex w-full sticky top-0 flex-grow shadow justify-between text-center text-sm items-center gap-4 bg-green-900 text-white">
         <div className="md:flex-1 text-start">Time</div>
-        <div className="w-[30%] max-md:w-[50%]">Team</div>
+        <div className="w-[30%] max-md:w-40%]">Team</div>
         <div className=" w-[30%] max-md:w-auto">Score</div>
         <div className="md:flex-1 ">Tip</div>
+        <div className="md:flex-1 ">BestTip</div>
         <div className="md:flex-1 ">Trust</div>
       </div>
 
@@ -71,12 +72,12 @@ export default function PublicPredictions({ activeDate, setPagenumber, pagenumbe
                       </div>
 
                       {/* Teams */}
-                      <div className="flex gap-2 flex-col w-[30%] max-md:w-[50%]">
+                      <div className="flex gap-2 flex-col w-[30%] max-md:w-[32%] ">
                         {/* Home Team */}
                         <div className="flex gap-2 items-center max-lg:text-[12px] text-[13px]">
                           <Image
-                            src={match.home_team_logo || "/globe.svg"}
-                            alt={`${match.home_team} Logo`}
+                             src={`/${match?.home_team_logo} || "/globe.svg"`}
+                            alt={`/${match.home_team_logo} Logo`}
                             className="w-5 h-5 rounded-full"
                             width={20}
                             height={20}
@@ -89,7 +90,7 @@ export default function PublicPredictions({ activeDate, setPagenumber, pagenumbe
                         {/* Away Team */}
                         <div className="flex gap-2 items-center max-lg:text-[12px] text-[13px]">
                           <Image
-                            src={match.away_team_logo || "/globe.svg"}
+                             src={`/${match?.away_team_logo} || "/globe.svg"`}
                             alt={`${match.away_team} Logo`}
                             className="w-5 h-5 rounded-full"
                             width={20}
@@ -102,12 +103,12 @@ export default function PublicPredictions({ activeDate, setPagenumber, pagenumbe
                       </div>
 
                       {/* Odds */}
-                      <div className="w-[30%] max-md:w-auto flex flex-col gap-2 items-center text-sm font-medium max-lg:text-[12px] text-[13px]">
+                      <div className="w-[30%] max-md:w-auto flex  flex-col gap-2 items-center text-sm font-medium max-lg:text-[12px] text-[13px]">
                         <div className="flex">
                           <p className="text-[13px] max-lg:text-[12px]">
-                            {match.home_score || "- : -"}
+                            {match.home_score || ""}
                           </p>
-                          <span className={`${match.home_score ? "" : "hidden"} px-1`}>-</span>
+                          <span className={`${match.home_score ? "" : "hiden"} px-1`}>-</span>
                           <p className="text-[13px] max-lg:text-[12px]">
                            {match.away_score || ""}
                           </p>
@@ -126,6 +127,10 @@ export default function PublicPredictions({ activeDate, setPagenumber, pagenumbe
                         </div>
                       </div>
 
+ {/* Tip */}
+                  <div className="md:flex-1 min-w-6 text-sm font-medium max-lg:text-[12px] text-[13px]">
+                        <p>{match.tip || ""}</p>
+                      </div>
                       {/* Best Tip */}
                       <div className="md:flex-1 min-w-6 text-sm font-medium max-lg:text-[12px] text-[13px]">
                         <p>{match.best_tip || ""}</p>

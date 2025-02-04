@@ -29,7 +29,7 @@ export default function PopularMatches() {
                         {/* Home Team */}
                         <div className="flex flex-col gap-2 items-center max-lg:text-[12px] text-[13px]">
                           <Image
-                            src={match.home_team_logo || "/globe.svg"}
+                            src={`/${match.home_team_logo} || "/globe.svg"`}
                             alt={`${match.home_team} Logo`}
                             className="w-10 h-10 rounded-full"
                             width={20}
@@ -54,7 +54,7 @@ export default function PopularMatches() {
                         {/* Away Team */}
                         <div className="flex gap-2 flex-col items-center max-lg:text-[12px] text-[13px]">
                           <Image
-                            src={match.away_team_logo || "/globe.svg"}
+                            src={`/${match.away_team_logo} || "/globe.svg"`}
                             alt={`${match.away_team} Logo`}
                             className="w-10 h-10 rounded-full"
                             width={20}
@@ -96,7 +96,7 @@ export default function PopularMatches() {
                         {/* Home Team */}
                         <div className="flex flex-col gap-2 items-center max-lg:text-[12px] text-[13px]">
                           <Image
-                            src={match.home_team_logo || "/globe.svg"}
+                             src={`/${match.home_team_logo} || "/globe.svg"`}
                             alt={`${match.home_team} Logo`}
                             className="w-10 h-10 rounded-full"
                             width={20}
@@ -121,7 +121,7 @@ export default function PopularMatches() {
                         {/* Away Team */}
                         <div className="flex gap-2 flex-col items-center max-lg:text-[12px] text-[13px]">
                           <Image
-                            src={match.away_team_logo || "/globe.svg"}
+                             src={`/${match.away_team_logo} || "/globe.svg"`}
                             alt={`${match.away_team} Logo`}
                             className="w-10 h-10 rounded-full"
                             width={20}

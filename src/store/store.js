@@ -5,6 +5,7 @@ import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import { apiSlice } from "../services/api";
 import { 
  authReducers, 
+ countryReducers, 
  notificationReducers,
  publicPredictionsReducers,
  } from "@/redux/reducers";
@@ -21,6 +22,7 @@ const notificationsPersistConfig = {
 const rootReducer = combineReducers({
   auth: authReducers,
   publicpredictions: publicPredictionsReducers,
+  countries: countryReducers,
   notifications: persistReducer(notificationsPersistConfig, notificationReducers),
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
