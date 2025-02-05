@@ -126,7 +126,7 @@ export default function Page() {
           formatDate={formatDate}
         />
       </div>
-      <MatchesSection />
+
           {/* popular game */}
           {/* <div className="mt-5 md:mt-6 hidden">
             <h2 className="mb-2 font-bold text-lg">Popular Matches</h2>
@@ -135,6 +135,7 @@ export default function Page() {
 
           {/* rest of games */}
           <div className="mt-5 md:mt-6 max-h-[95vh] overflow-scroll hide-scrollbar">
+          <MatchesSection />
             <h2 className="mb-2 font-bold text-lg">All Matches</h2>
             {/* Filtered public predictions */}
             <AllMatches activeDate={activeDate} setPagenumber={setPagenumber} pagenumber={pagenumber} />
