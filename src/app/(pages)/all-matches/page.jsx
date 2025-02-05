@@ -107,16 +107,16 @@ export default function Page() {
   }
 
   return (
-    <div className="py-5 lg:py-5 max-md:px-0 max-2xl:px-4">
+    <div className="py- lg:py-5 max-md:px-0 max-2xl:px-4">
     
 
       <div className="flex gap-4 mt-5 md:mt-10">
         {/* sidebar */}
-        <div className="md:w-[20%] max-md:hidden ">
+        <div className="md:w-[20%] max-md:hidden mt-0 ">
           <CountryList />
         </div>
         {/* mid section */}
-        <div className="md:w-[80%] sticky top-2 p-2 overflow-hidden">
+        <div className="md:w-[80%] md:sticky md:top-2 p-2 overflow-hidden">
       <div className=''>
       <MatchesNavigation
           activeDate={activeDate}
@@ -125,10 +125,8 @@ export default function Page() {
           range={range}
           formatDate={formatDate}
         />
-    
-          <MatchesSection />
       </div>
-
+      <MatchesSection />
           {/* popular game */}
           {/* <div className="mt-5 md:mt-6 hidden">
             <h2 className="mb-2 font-bold text-lg">Popular Matches</h2>

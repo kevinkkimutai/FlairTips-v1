@@ -14,7 +14,7 @@ export default function MatchesNavigation({ activeDate, setActiveDate, dates, ra
   }, []);
 
   return (
-    <div className="w-full mb-3 sticky top-3">
+    <div className="w-full mb-3 md:sticky md:top-3">
       {/* Container with hidden scrollbar but scrollable */}
       <div className="flex gap-4 overflow-x-auto p-1 rounded-md hide-scrollbar">
         {dates.map((item, index) => {

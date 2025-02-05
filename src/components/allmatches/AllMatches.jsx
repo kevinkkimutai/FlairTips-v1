@@ -159,9 +159,97 @@ export default function AllMatches({ activeDate }) {
                           key={matchIndex}
                           className="rounded-md p-2 flex w-full flex-grow shadow-[0_2px_10px_-3px_rgba(34,197,94,0.3)] justify-between text-center text-sm items-center gap-4 bg-white"
                         >
-                          {/* Match Details */}
-                          <div className="md:flex-1">{match.fixture_time || "N/A"}</div>
-                          {/* Add other match details */}
+                          {/* Fixture Date and Time */}
+                          <div className="md:flex-1 flex flex-col items-center justify-between text-[13px] font-medium max-lg:text-[12px]">
+                            {match.fixture_time ? (
+                              <>
+                                <p className="max-lg:text-[12px] text-[13px] max-md:hidden">
+                                  {match.fixture_time || "No time available"}
+                                </p>
+                                <div className="md:hidden">
+                                  <p className="text-[13px] max-lg:text-[12px]">
+                                    {match.fixture_time.split(":")[0]}
+                                  </p>
+                                  <p className="text-[13px] max-lg:text-[12px]">
+                                    {match.fixture_time.split(":")[1]}
+                                  </p>
+                                </div>
+                              </>
+                            ) : (
+                              <p>N/A</p>
+                            )}
+                          </div>
+
+                          {/* Teams */}
+                          <div className="flex gap-2 flex-col w-[30%] max-md:w-[32%]">
+                            {/* Home Team */}
+                            <div className="flex gap-2 items-center max-lg:text-[12px] text-[13px]">
+                              <Image
+                                src={match?.home_team_logo || "/globe.svg"}
+                                alt={match.home_team_logo || "Logo"}
+                                className="w-5 h-5 rounded-full"
+                                width={20}
+                                height={20}
+                              />
+                              <span className="line-clamp-2 text-start">
+                                {match.home_team || "Home Team"}
+                              </span>
+                            </div>
+
+                            {/* Away Team */}
+                            <div className="flex gap-2 items-center max-lg:text-[12px] text-[13px]">
+                              <Image
+                                src={
+                                  match?.home_team_logo?.startsWith("http")
+                                    ? match.home_team_logo
+                                    : "/globe.svg"
+                                }
+                                alt={match?.home_team || "Home Team Logo"}
+                                className="w-5 h-5 rounded-full"
+                                width={20}
+                                height={20}
+                              />
+                              <span className="line-clamp-2 text-start">
+                                {match.away_team || "Away Team"}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Odds */}
+                          <div className="w-[30%] max-md:w-auto flex flex-col gap-2 items-center text-sm font-medium max-lg:text-[12px] text-[13px]">
+                            <div className="flex">
+                              <p className="text-[13px] max-lg:text-[12px]">
+                                {match.home_score || ""}
+                              </p>
+                              <span
+                                className={`${
+                                  match.home_score ? "" : "hidden"
+                                } px-1`}
+                              >
+                                -
+                              </span>
+                              <p className="text-[13px] max-lg:text-[12px]">
+                                {match.away_score || ""}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Tip */}
+                          <div className="md:flex-1 text-sm font-medium max-lg:text-[12px] text-[13px]">
+                            <p>{match.tip || ""}</p>
+                          </div>
+
+                          {/* Best Tip */}
+                          <div className="md:flex-1 text-sm font-medium max-lg:text-[12px] text-[13px]">
+                            <p>{match.best_tip || ""}</p>
+                          </div>
+
+                          {/* Confidence */}
+                          <div className="md:flex-1 text-sm font-medium max-lg:text-[12px] text-[13px]">
+                            <p className="max-lg:text-[12px] text-[13px]">
+                              {match.confidence || "N/A"}
+                            </p>
+                          </div>
                         </div>
                       ))}
                   </div>
