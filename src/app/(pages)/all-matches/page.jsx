@@ -22,7 +22,7 @@ export default function Page() {
   yesterday.setDate(today.getDate() - 1);
 
   // Add 3 days before yesterday
-  for (let i = 3; i > 0; i--) {
+  for (let i =2; i > 0; i--) {
     const newDate = new Date(yesterday);
     newDate.setDate(yesterday.getDate() - i);
     dates.push(newDate);
@@ -38,7 +38,7 @@ export default function Page() {
   dates.push(...range.map(item => item.date));
 
   // Add 5 days after tomorrow
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 0; i++) {
     const newDate = new Date(range[2].date.getTime());
     newDate.setDate(range[2].date.getDate() + i);
     dates.push(newDate);
@@ -70,7 +70,7 @@ export default function Page() {
             data: {
               date: "today",
               type: "all",
-              page: pagenumber,
+              page: 1,
               country: "",
             },
           },
@@ -107,34 +107,36 @@ export default function Page() {
   }
 
   return (
-    <div className="py-5 lg:py-10">
-      <div className="">
-        <MatchesNavigation
+    <div className="py-5 lg:py-5 max-md:px-0 max-2xl:px-4">
+    
+
+      <div className="flex gap-4 mt-5 md:mt-10">
+        {/* sidebar */}
+        <div className="md:w-[20%] max-md:hidden ">
+          <CountryList />
+        </div>
+        {/* mid section */}
+        <div className="md:w-[80%] sticky top-2 p-2 overflow-hidden">
+      <div className=''>
+      <MatchesNavigation
           activeDate={activeDate}
           setActiveDate={setActiveDate}
           dates={dates}
           range={range}
           formatDate={formatDate}
         />
+    
+          <MatchesSection />
       </div>
 
-      <div className="flex gap-4 mt-5 md:mt-10">
-        {/* sidebar */}
-        <div className="w-[20%] max-md:hidden ">
-          <CountryList />
-        </div>
-        {/* mid section */}
-        <div className="flex-1  p-2">
-          <MatchesSection />
-
           {/* popular game */}
-          <div className="mt-5 md:mt-6 hidden">
+          {/* <div className="mt-5 md:mt-6 hidden">
             <h2 className="mb-2 font-bold text-lg">Popular Matches</h2>
             <PopularMatches />
-          </div>
+          </div> */}
 
           {/* rest of games */}
-          <div className="mt-5 md:mt-6">
+          <div className="mt-5 md:mt-6 max-h-[95vh] overflow-scroll hide-scrollbar">
             <h2 className="mb-2 font-bold text-lg">All Matches</h2>
             {/* Filtered public predictions */}
             <AllMatches activeDate={activeDate} setPagenumber={setPagenumber} pagenumber={pagenumber} />

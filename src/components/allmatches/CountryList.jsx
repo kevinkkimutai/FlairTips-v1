@@ -8,7 +8,14 @@ export default function CountryList() {
   const countries = useSelector(selectCountries) 
 
   return (
-    <div className="flex flex-col gap-4 sticky top-0 ">
+    <div className="flex flex-col gap-4 sticky top-0  overflow-scroll bg-white hide-scrollba">
+      <div
+          
+          className="flex items-center justify-center gap-4 sticky font-bold top-2 text-white bg-green-900 p-4 rounded-t-lg shadow-md hover:shadow-lg mt- mb-2 transition-shadow"
+        >
+          COUNTRIES
+        </div>
+        <div className='overflow-scroll max-h-[95vh] flex flex-col  gap-4'>
       {countries?.data?.map((country) => (
         <div
           key={country.id}
@@ -33,6 +40,7 @@ export default function CountryList() {
           <div className="text-lg font-semibold text-gray-700">{country.name}</div>
         </div>
       ))}
+      </div>
     </div>
   )
 }
