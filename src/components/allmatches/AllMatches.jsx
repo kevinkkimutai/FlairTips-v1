@@ -43,6 +43,8 @@ export default function AllMatches({ activeDate }) {
         // If no leagues have matches for the selected date, hide the country
         if (filteredLeagues.length === 0) return null;
 
+        
+
         return (
           <div key={index} className="accordion  shadow-[0_2px_10px_-3px_rgba(34,197,94,0.3)] bg-white rounded-md mb-4" role="accordion">
             {/* Accordion Button */}
