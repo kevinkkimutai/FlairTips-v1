@@ -134,7 +134,7 @@ export default function Page() {
           </div> */}
 
           {/* rest of games */}
-          <div className="mt-5 md:mt-6 max-h-[95vh] overflow-scroll hide-scrollbar">
+          <div className="mt-5 md:mt-6 h-[95vh] overflow-scroll hide-scrollbar">
           <MatchesSection />
             <h2 className="mb-2 font-bold text-lg">All Matches</h2>
             {/* Filtered public predictions */}

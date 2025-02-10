@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux"; // Import useDispatch
+import { useDispatch } from "react-redux"; 
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,11 +36,16 @@ export default function Page() {
     try {
       const response = await loginUser(requestBody).unwrap();
       // Save token to cookies
-      Cookies.set("access_token", response.data.access_token, { expires: 7, secure: true });
+      Cookies.set("access_token", response.data.access_token, { 
+        expires: 7, 
+        secure: true, 
+        sameSite: "Strict",
+      });
+      
       // Dispatch setUser to update Redux state
       dispatch(setUser(response.data));
       console.log("Login successful:", response);
-      route.push("/");
+      route.push("/all-matches");
     } catch (err) {
       toast.error(err?.data?.message || "Invalid email or password");
     } finally {

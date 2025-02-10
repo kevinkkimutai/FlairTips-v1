@@ -10,6 +10,8 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     // const token = getState().auth.access_token;
     const token = Cookies.get("access_token");
+  // const token = request.cookies.get("access_token")?.value;
+
     console.log("token: " + token);
     
     if (token) {
