@@ -1,6 +1,6 @@
 "use client";
 import { useGetCurrentUserMutation } from "@/redux/actions/authActions";
-import { selectUser } from "@/redux/reducers/AuthReducers";
+import { selectUser, setUser } from "@/redux/reducers/AuthReducers";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,17 +15,12 @@ export default function Navbar() {
 
     useEffect(() => {
       const fetchUser = async () => {
-        const accessToken = Cookies.get('access_token');
-        // if (!accessToken) {
-        //   toast.error("Access token not found. Please log in.");
-        //   return;
-        // }
-  
+       
         const requestBody = {
           request: {
             request_id: Date.now(),
             data: {
-              access_token: accessToken,
+             
             },
           },
         };
@@ -33,9 +28,9 @@ export default function Navbar() {
         try {
           const response = await currentUser(requestBody).unwrap();
           console.log("User details fetched", response);
-          dispatch(response.data);
+          dispatch(setUser(response.data));
         } catch (error) {
-          // toast.error("Please log in.");
+          toast.error("Please log in.");
         }
       };
   
@@ -66,6 +61,9 @@ export default function Navbar() {
       href: "/contact-us",
     },
   ];
+
+  console.log("user:", user);
+
   return (
     <div className="w-full bg-green-900 text-white">
       <div className="max-w-[1280px] mx-auto relative">
@@ -137,7 +135,7 @@ export default function Navbar() {
                   href="javascript:void(0)"
                   className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-white text-[15px] flex items-center"
                 >
-            {user?.user?.user?.first_name || "User"}
+            {user?.first_name || "User"}
 
 
                   <svg
