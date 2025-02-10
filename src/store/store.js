@@ -6,6 +6,7 @@ import { apiSlice } from "../services/api";
 import { 
  authReducers, 
  countryReducers, 
+ fixtureDetailsReducers, 
  notificationReducers,
  publicPredictionsReducers,
  } from "@/redux/reducers";
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   auth: authReducers,
   publicpredictions: publicPredictionsReducers,
   countries: countryReducers,
+  fixturedetails: fixtureDetailsReducers,
   notifications: persistReducer(notificationsPersistConfig, notificationReducers),
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
