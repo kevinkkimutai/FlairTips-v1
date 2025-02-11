@@ -9,6 +9,13 @@ export const publicPredictionsApiSlice = apiSlice.injectEndpoints({
           body: { ...requestBody },
         }),
       }),
+      getSubscriberFixes: builder.mutation({
+        query: (requestBody) => ({
+            url: "/fixtures/fixtures",
+          method: "POST",
+          body: { ...requestBody },
+        }),
+      }),
   
 
   }),
@@ -16,4 +23,5 @@ export const publicPredictionsApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetPublicPredictionsMutation,
+  useGetSubscriberFixesMutation,
 } = publicPredictionsApiSlice;

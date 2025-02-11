@@ -26,7 +26,7 @@ const authSlice = createSlice({
       state.user = null;
       state.notifications = null;
       state.isAuthenticated = false;
-      Cookies.remove("token");
+      Cookies.remove("access_token");
 
     },
     

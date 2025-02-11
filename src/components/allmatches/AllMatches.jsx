@@ -67,13 +67,13 @@ export default function AllMatches({ activeDate }) {
 
         return (
           <div key={countryIndex} className="shadow md:bg-white rounded-md mb-4">
-            <div className="flex items-center bg-green-900 text-white  text-gray-600 p-2 rounded-t">
+            <div className="flex items-center bg-green-900 text-white  0 p-2 rounded-t">
               <Image
                 src={countryFlag}
                 alt={`${country} Flag`}
                 width={24}
                 height={16}
-                className="mr-4 h-4 w-6 object-contain rounded bg-white"
+                className="mr-4 h-4 w-6 object-contain rounded "
               />
               <span>{country}</span>
             </div>
@@ -90,15 +90,15 @@ export default function AllMatches({ activeDate }) {
                     } flex justify-between items-center`}
                   >
                     <span>{league}</span>
-                    <span>{openLeagues.includes(leagueKey) ? "▲" : "▼"}</span>
+                    {/* <span>{openLeagues.includes(leagueKey) ? "▲" : "▼"}</span> */}
                   </button>
 
                   <div
-                    className={`transition-all overflow-hidden ${
+                    className={`transition-all overflow-hidden max-h-[1000px] ${
                       openLeagues.includes(leagueKey) ? "max-h-[1000px]" : "max-h-0"
                     }`}
                   >
-                    <div className="rounded-lg max-md:hidden px-2 py-1 flex w-full sticky top-0 flex-grow shadow justify-between text-center text-sm items-center gap-4 bg-green-100 text-black">
+                    <div className="rounded-lg max-md:hidden px-2 py-1 flex w-full sticky top-0 text-[13px] flex-grow shadow justify-between text-center text-sm items-center gap-4 bg-green-100 text-black">
                       <div className="md:flex-1 max-md:hidden text-start">Time</div>
                       <div className="w-[30%] max-md:w-[40%] max-md:text-start">Team</div>
                       <div className="w-[30%] max-md:flex-1 max-md:text-start">Score</div>
@@ -129,7 +129,7 @@ export default function AllMatches({ activeDate }) {
                         >
                            <div className="flex text-[13px] itemzs-center justify-start w-full md:hidden font-medium max-lg:text-[12px]">
                        
-                              <p className="max-lg:text-[12px] text-[13px] text-start  ">
+                              <p className="max-lg:text-[12px] text-[12px] text-start  ">
                                 {match?.fixture_date || "No time available"}
                               </p>
                               
@@ -144,14 +144,14 @@ export default function AllMatches({ activeDate }) {
                         <div className="md:flex-1 max-md:hidden flex flex-col items-center justify-between text-[13px] font-medium max-lg:text-[12px]">
                           {match.fixture_time ? (
                             <>
-                              <p className="max-lg:text-[12px] text-[13px] max-md:hidden">
+                              <p className="max-lg:text-[12px] text-[12px] max-md:hidden">
                                 {match.fixture_time || "No time available"}
                               </p>
                               <div className="md:hidden">
-                                <p className="text-[13px] max-lg:text-[12px]">
+                                <p className="text-[12px] max-lg:text-[12px]">
                                   {match.fixture_time.split(":")[0]}
                                 </p>
-                                <p className="text-[13px] max-lg:text-[12px]">
+                                <p className="text-[12px] max-lg:text-[12px]">
                                   {match.fixture_time.split(":")[1]}
                                 </p>
                               </div>
@@ -174,7 +174,7 @@ export default function AllMatches({ activeDate }) {
                                 width={20}
                                 height={20}
                               />
-                              <span>{match.home_team || "Home Team"}</span>
+                              <span className="text-[13px]">{match.home_team || "Home Team"}</span>
                             </div>
 
                             <div className="flex gap-2 items-center max-md:text-start">
@@ -189,49 +189,49 @@ export default function AllMatches({ activeDate }) {
                                 width={20}
                                 height={20}
                               />
-                              <span>{match.away_team || "Away Team"}</span>
+                              <span className="text-[13px]">{match.away_team || "Away Team"}</span>
                             </div>
                           </div>
 
                           <div className="w-[30%] max-md:w-auto flex flex-col gap-2 items-center max-md:hidden">
-                            <div className="flex">
+                            <div className="flex text-[12px] max-lg:text-[12px]">
                               <p>{match.home_score || ""}</p>
                               <span>{match.home_score ? "-" : ""}</span>
                               <p>{match.away_score || ""}</p>
                             </div>
                             <div className="flex max-md:hidden  gap-4">
                         <div className="flex flex-col text-sm gap-1">
-            <p className="text-sm ">1</p>
-            <p className=" text-center text-gray-600">{match.home_team_odd}</p>
+            <p className="text-[12px] ">1</p>
+            <p className="text-[12px] text-center text-gray-600">{match.home_team_odd}</p>
           </div>
           <div className="flex flex-col text-sm items-center  text-center gap-1">
-            <p className="text-sm ">X</p>
-            <p className=" flex-col text-gray-600">{match.draw_odd}</p>
+            <p className="text-[12px]">X</p>
+            <p className=" text-[12px] flex-col text-gray-600">{match.draw_odd}</p>
           </div>
           <div className="flex flex-col text-sm gap-1">
-            <p className="text-sm ">2</p>
-            <p className=" text-gray-600">{match.away_team_odd}</p>
+            <p className="text-[12px]">2</p>
+            <p className=" text-gray-600 text-[12px]">{match.away_team_odd}</p>
           </div>
                         </div>
                           </div>
 
                        
-                        <div className="md:flex-1 max-md:hidden ">{match.tip || ""}</div>
-                          <div className="md:flex-1 max-md:hidden">{match.best_tip || ""}</div>
-                          <div className="md:flex-1 max-md:hidden">{match.confidence || "N/A"}</div>
+                        <div className="md:flex-1 text-[12px] max-md:hidden ">{match.tip || ""}</div>
+                          <div className="md:flex-1 text-[12px] max-md:hidden">{match.best_tip || ""}</div>
+                          <div className="md:flex-1 text-[12px] max-md:hidden">{match.confidence || "N/A"}</div>
                        
                         <div className="flex md:hidden  gap-2">
                         <div className="flex flex-col text-sm gap-1">
             <p className="text-sm ">1</p>
-            <p className="ms-2 text-gray-600">{match.home_team_odd}</p>
+            <p className="ms-2 text-[14px] max-lg:text-[12px] text-gray-600">{match.home_team_odd}</p>
           </div>
           <div className="flex flex-col text-sm items-center text-center gap-1">
             <p className="text-sm ">X</p>
-            <p className="ms-2 flex-col text-gray-600">{match.draw_odd}</p>
+            <p className="ms-2 text-[14px] max-lg:text-[12px] flex-col text-gray-600">{match.draw_odd}</p>
           </div>
           <div className="flex flex-col text-sm gap-1">
             <p className="text-sm ">2</p>
-            <p className="ms-2 text-gray-600">{match.away_team_odd}</p>
+            <p className="ms-2 text-[14px] max-lg:text-[12px] text-gray-600">{match.away_team_odd}</p>
           </div>
                         </div>
 
@@ -239,8 +239,8 @@ export default function AllMatches({ activeDate }) {
                         <hr className="w-full md:hidden"/>
                         <div className="w-ful text-star flex gap-10 md:hidden">
                         
-                        <div className=""><span className="font-bold">Tip : </span>{match.tip || ""}</div>
-                        <div className=""><span className="font-bold">Best Tip : </span>{match.best_tip || ""}</div>
+                        <div className="text-[14px] max-lg:text-[12px]"><span className="font-bold text-[14px] max-lg:text-[12px]">Tip : </span>{match.tip || ""}</div>
+                        <div className="text-[14px] max-lg:text-[12px]"><span className="font-bold text-[14px] max-lg:text-[12px]">Best Tip : </span>{match.best_tip || ""}</div>
                         </div>
                         </div>
                       ))}

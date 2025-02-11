@@ -1,41 +1,38 @@
 "use client";
 import { useGetCurrentUserMutation } from "@/redux/actions/authActions";
-import { selectUser, setUser } from "@/redux/reducers/AuthReducers";
+import { logOut, selectUser, setUser } from "@/redux/reducers/AuthReducers";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Cookies from "js-cookie"; 
+import Cookies from "js-cookie";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-    const user = useSelector(selectUser);
-    const [currentUser] = useGetCurrentUserMutation();
-    const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const [currentUser] = useGetCurrentUserMutation();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-      const fetchUser = async () => {
-       
-        const requestBody = {
-          request: {
-            request_id: Date.now(),
-            data: {
-             
-            },
-          },
-        };
-  
-        try {
-          const response = await currentUser(requestBody).unwrap();
-          console.log("User details fetched", response);
-          dispatch(setUser(response.data));
-        } catch (error) {
-          toast.error("Please log in.");
-        }
+  useEffect(() => {
+    const fetchUser = async () => {
+      const requestBody = {
+        request: {
+          request_id: Date.now(),
+          data: {},
+        },
       };
-  
-      fetchUser();
-    }, [currentUser, dispatch]);
+
+      try {
+        const response = await currentUser(requestBody).unwrap();
+        console.log("User details fetched", response);
+        dispatch(setUser(response.data));
+      } catch (error) {
+        toast.error("Please log in.");
+      }
+    };
+
+    fetchUser();
+  }, [currentUser, dispatch]);
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -62,6 +59,11 @@ export default function Navbar() {
     },
   ];
 
+  const handleLogout = () => {
+    dispatch(logOut());
+    window.location.href = "/"; 
+  };
+
   console.log("user:", user);
 
   return (
@@ -70,15 +72,12 @@ export default function Navbar() {
         <header className="flex  py-4 max-2xl:px-4  font-sans min-h-[70px] tracking-wide relative z-50">
           <div className="flex flex-wrap items-center justify-between gap-4 w-full max-w-screen-xl mx-auto">
             <a href="#" className="max-sm:hidden">
-              <p
-                className="w-36 font-bold text-xl"
-              >Kelvin</p>
+              <p className="w-36 font-bold text-xl">Kelvin</p>
             </a>
             <a href="#" className="hidden max-sm:block">
-              <p
-               
-                className="w-9 h-9 bg-green-400 items-center  flex justify-center font-bold text-xl rounded-lg"
-              >K</p>
+              <p className="w-9 h-9 bg-green-400 items-center  flex justify-center font-bold text-xl rounded-lg">
+                K
+              </p>
             </a>
 
             <div
@@ -106,17 +105,17 @@ export default function Navbar() {
                 </svg>
               </button>
 
-              <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-green-950 max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
+              <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-green-900 max-md:h-[91vh] max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-10">
                 <li className="mb-6 hidden max-lg:block">
                   <Link href="/" onClick={closeMenu}>
-                    <p
-                      
-                      className="w-36 font-bold"
-                    > FlairTips</p>
+                    <p className="w-36 font-bold"> FlairTips</p>
                   </Link>
                 </li>
                 {navlinks.map((nav, index) => (
-                  <li className=" max-lg:py-2 relative max-lg:border-b" key={index}>
+                  <li
+                    className=" max-lg:py-2 relative max-lg:border-b"
+                    key={index}
+                  >
                     <Link
                       href={nav.href}
                       onClick={closeMenu}
@@ -130,13 +129,12 @@ export default function Navbar() {
             </div>
 
             <div className="flex  items-center max-lg:ml-auto space-x-4 relative">
-              <div className="group  max-lg:px-3 max-lg:py-3 relative max-d:hidden">
+              <div className="group  max-lg:px-3 max-lg:py-3 relative max-md:hidden">
                 <a
-                  href="javascript:void(0)"
+                  href="/profile"
                   className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-white text-[15px] flex items-center"
                 >
-            {user?.first_name || "User"}
-
+                  {user?.first_name || "User"}
 
                   <svg
                     className="w-6 h-6 ms-2 text-white"
@@ -171,7 +169,7 @@ export default function Navbar() {
                   </svg>
                 </a>
                 <ul className="absolute top-12 max-lg:top-16 right-0 z-50 block space-y-2 shadow-lg bg-green-800 max-h-0 overflow-hidden min-w-[150px] max-w-[230px] group-hover:opacity-100 group-hover:max-h-[700px] px-6 group-hover:pb-4 group-hover:pt-6 transition-all duration-[400ms]">
-                     <li className="border-b py-3">
+                  <li className="border-b py-3">
                     <a
                       href="/profile"
                       className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-white text-[15px] flex items-center"
@@ -195,25 +193,41 @@ export default function Navbar() {
                     </a>
                   </li>
                   <li className="border-b py-3">
-                    <a
-                      href="/login"
-                      className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-white text-[15px] flex items-center"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        className="w-6 h-6 fill-current me-2"
+                    {user ? (
+                      <button 
+                        onClick={handleLogout}
+                        className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-white text-[15px] flex items-center"
                       >
-                        <path d="M10 3H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2v-3h-2v3H5V5h5v3h2V5c0-1.1-.9-2-2-2zm9 9-4-4v3H9v2h6v3l4-4z" />
-                      </svg>
-                      Login
-                    </a>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          className="w-6 h-6 fill-current me-2"
+                        >
+                          <path d="M10 3H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2v-3h-2v3H5V5h5v3h2V5c0-1.1-.9-2-2-2zm9 9-4-4v3H9v2h6v3l4-4z" />
+                        </svg>
+                        LogOut
+                      </button>
+                    ) : (
+                      <a
+                        href="/login"
+                        className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-white text-[15px] flex items-center"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          className="w-6 h-6 fill-current me-2"
+                        >
+                          <path d="M10 3H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2v-3h-2v3H5V5h5v3h2V5c0-1.1-.9-2-2-2zm9 9-4-4v3H9v2h6v3l4-4z" />
+                        </svg>
+                        Login
+                      </a>
+                    )}
+                   
                   </li>
-                 
                 </ul>
               </div>
 
-              <button onClick={toggleMenu} className="lg:hidden max-md:hidden ">
+              <button onClick={toggleMenu} className="lg:hidden max-md:hidd ">
                 <svg
                   className="w-7 h-7"
                   fill="#000"
