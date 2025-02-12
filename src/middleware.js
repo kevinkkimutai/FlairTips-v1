@@ -4,10 +4,11 @@ export function middleware(request) {
   const { pathname } = request.nextUrl;
 
   // Public routes that do not require authentication
-  const publicRoutes = ['/login', '/forgot-password', '/reset-password', '/all-matches','/', '/contact-us'];
+  const publickRoutes = ['/login', '/forgot-password', '/reset-password', '/all-matches','/', '/contact-us'];
+ const privateRoutes = []
 
   // Check if the current route is public
-  const isPublicRoute = publicRoutes.includes(pathname);
+  const isPrivateRoute = privateRoutes.includes(pathname);
 
   // Get the token from cookies (server-side)
   const token = request.cookies.get("access_token")?.value;
@@ -15,7 +16,7 @@ export function middleware(request) {
   console.log("Token in middleware:", token); // Debugging
 
   // If there's no token and the route is not public, redirect to login
-  if (!token && !isPublicRoute) {
+  if (!token && isPrivateRoute) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 

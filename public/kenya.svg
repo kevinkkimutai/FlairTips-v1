@@ -6,9 +6,9 @@
   <ellipse cx="360" cy="240" rx="40" ry="120" fill="#ffffff" />
   <polygon points="360,120 370,140 360,160 350,140" fill="#ff0000" />
   <polygon points="360,360 370,340 360,320 350,340" fill="#ff0000" />
-  <line x1="360" y1="160" x2="360" y2="320" stroke="#ffffff" stroke-width="8" />
-  <line x1="360" y1="120" x2="360" y2="360" stroke="#ffffff" stroke-width="4" />
-  <line x1="360" y1="180" x2="360" y2="300" stroke="#ff0000" stroke-width="4" />
+  <line x1="360" y1="160" x2="360" y2="320" stroke="#ffffff" strokeWidth="8" />
+  <line x1="360" y1="120" x2="360" y2="360" stroke="#ffffff" strokeWidth="4" />
+  <line x1="360" y1="180" x2="360" y2="300" stroke="#ff0000" strokeWidth="4" />
   <path d="M300 120 L320 140 L300 160 Z" fill="#ffffff" />
   <path d="M300 320 L320 300 L300 280 Z" fill="#ffffff" />
   <path d="M420 120 L400 140 L420 160 Z" fill="#ffffff" />

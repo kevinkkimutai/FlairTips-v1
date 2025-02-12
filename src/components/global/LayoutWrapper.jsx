@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "@/redux/reducers/AuthReducers";
 
+
 export default function LayoutWrapper({ children }) {
   const pathname = usePathname();
 

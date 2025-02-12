@@ -3,7 +3,7 @@ import { useLoginUserMutation } from "@/redux/actions/authActions";
 import { setUser } from "@/redux/reducers/AuthReducers";
 import Cookies from "js-cookie";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux"; 
@@ -14,8 +14,10 @@ export default function Page() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [loginUser] = useLoginUserMutation();
-  const route = useRouter();
-  const dispatch = useDispatch(); // Get the dispatch function
+  const router = useRouter();
+  const dispatch = useDispatch(); 
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/';
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
@@ -45,7 +47,7 @@ export default function Page() {
       // Dispatch setUser to update Redux state
       dispatch(setUser(response.data));
       console.log("Login successful:", response);
-      route.push("/all-matches");
+      router.push(redirect);
     } catch (err) {
       toast.error(err?.data?.message || "Invalid email or password");
     } finally {
