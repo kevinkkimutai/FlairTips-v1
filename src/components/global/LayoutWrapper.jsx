@@ -16,6 +16,7 @@ export default function LayoutWrapper({ children }) {
   // Define the routes where the Navbar and Footer should be hidden
   const authRoutes = ["/login", "/register", "/forgot-password", "/reset-password"];
   const hideNavbarFooter = authRoutes.includes(pathname);
+  const hideModals = hideNavbarFooter;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [timerActive, setTimerActive] = useState(false);
@@ -23,7 +24,7 @@ export default function LayoutWrapper({ children }) {
 
   useEffect(() => {
     const initialTimeout = setTimeout(() => {
-      if (loginModalOpen === false || user.is_subscribed !== 0) {
+      if (user?.is_subscribed !== 0) {
         setIsModalOpen(true);
       }
       if (!user) {
@@ -50,6 +51,7 @@ export default function LayoutWrapper({ children }) {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setLoginModalOpen(false);
     setTimerActive(false);
   };
 
@@ -58,8 +60,12 @@ export default function LayoutWrapper({ children }) {
     {!hideNavbarFooter && <Navbar />}
     <div className="max-w-[1280px] mx-auto max-2xl:px-4 min-h-scree max-md:mb-20">
       {children}
-      <SuscriptionModal isOpen={isModalOpen} onClose={closeModal} />
-      <LoginModal isOpen={loginModalOpen} onClose={closeModal} />
+      {!hideModals && (
+          <>
+            <SuscriptionModal isOpen={isModalOpen} onClose={closeModal} />
+            <LoginModal isOpen={loginModalOpen} onClose={closeModal} />
+          </>
+        )}
     </div>
     {!hideNavbarFooter && (
       <>
