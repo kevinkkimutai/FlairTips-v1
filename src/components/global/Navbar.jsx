@@ -68,7 +68,7 @@ export default function Navbar() {
 
   return (
     <div className="w-full bg-white text-black">
-      <div className="max-w-[1280px] mx-auto relative">
+      <div className="max-w-[1280px] mx-auto relative border-b-2">
         <header className="flex  py-4 max-2xl:px-4  font-sans min-h-[70px] tracking-wide relative z-50">
           <div className="flex flex-wrap items-center justify-between gap-4 w-full max-w-screen-xl mx-auto">
             <a href="#" className="max-sm:hidden">
@@ -105,7 +105,7 @@ export default function Navbar() {
                 </svg>
               </button>
 
-              <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-green-900 max-md:h-[91vh] max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-10">
+              <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-md:h-[91vh] max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-10">
                 <li className="mb-6 hidden max-lg:block">
                   <Link href="/" onClick={closeMenu}>
                     <p className="w-36 font-bold"> FlairTips</p>

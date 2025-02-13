@@ -12,13 +12,13 @@ export default function Footer() {
             <h2 className="text-white text-sm uppercase font-semibold mb-4">Quick Links</h2>
             <ul className="space-y-3">
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white text-sm transition-all">Newsroom</Link>
+                <Link href="/home" className="text-gray-400 hover:text-white text-sm transition-all">Home</Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white text-sm transition-all">Tailwind CSS</Link>
+                <Link href="/all-matches" className="text-gray-400 hover:text-white text-sm transition-all">All Matches</Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white text-sm transition-all">Careers</Link>
+                <Link href="/contact-us" className="text-gray-400 hover:text-white text-sm transition-all">Contact Us</Link>
               </li>
             </ul>
           </div>
@@ -42,10 +42,10 @@ export default function Footer() {
             <h2 className="text-white text-sm uppercase font-semibold mb-4">Company</h2>
             <ul className="space-y-3">
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white text-sm transition-all">About</Link>
+                <Link href="/about" className="text-gray-400 hover:text-white text-sm transition-all">About</Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white text-sm transition-all">Privacy Policy</Link>
+                <Link href="/privacy-policy" className="text-gray-400 hover:text-white text-sm transition-all">Privacy Policy</Link>
               </li>
               <li>
                 <Link href="#" className="text-gray-400 hover:text-white text-sm transition-all">Terms &amp; Conditions</Link>
