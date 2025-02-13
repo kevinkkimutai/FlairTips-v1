@@ -35,7 +35,7 @@ export default function PaymentModal({ plan, onClose, user }) {
          <input 
            type="text" 
            placeholder="Enter MPESA number" 
-           value={user?.phone || ""}
+          //  value={user?.phone || ""}
            className="w-full bg-gray-100 rounded-md py-3 px-4 text-sm outline-none focus:ring-2 focus:ring-green-700"
          />
          <div className='flex gap-4'>

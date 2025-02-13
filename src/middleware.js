@@ -3,25 +3,24 @@ import { NextResponse } from "next/server";
 export function middleware(request) {
   const { pathname } = request.nextUrl;
 
-  // Public routes that do not require authentication
-  const publickRoutes = ['/login', '/forgot-password', '/reset-password', '/all-matches','/', '/contact-us'];
- const privateRoutes = []
+  // Routes that require authentication
+  const protectedRoutes = ['/subscription'];
 
-  // Check if the current route is public
-  const isPrivateRoute = privateRoutes.includes(pathname);
+  // Check if the current route requires authentication
+  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
 
   // Get the token from cookies (server-side)
   const token = request.cookies.get("access_token")?.value;
 
-  console.log("Token in middleware:", token); // Debugging
+  console.log("Token in middleware:", token);
 
-  // If there's no token and the route is not public, redirect to login
-  if (!token && isPrivateRoute) {
+  // If there's no token and the route requires authentication, redirect to login
+  if (!token && isProtectedRoute) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // If the user is authenticated and tries to access login or other public auth pages, redirect to all-matches
-  if (token && (pathname === '/login' || pathname === '/forgot-password' || pathname === '/reset-password')) {
+  // If authenticated user tries to access login or password reset pages, redirect to dashboard
+  if (token && ['/login', '/forgot-password', '/reset-password'].includes(pathname)) {
     return NextResponse.redirect(new URL('/all-matches', request.url));
   }
 
@@ -29,7 +28,7 @@ export function middleware(request) {
   return NextResponse.next();
 }
 
-// Config to apply the middleware to all routes except for API, static, and image paths
+// Config to apply the middleware to all routes except API, static, and image paths
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };

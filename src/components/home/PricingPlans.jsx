@@ -63,10 +63,7 @@ export default function PricingPlans() {
               <p className="mt-2">{plan.description}</p>
               <div className="mt-6">
                 <h2 className="text-4xl font-semibold">Ksh: {plan.amount}<span className="text-gray-500 ml-2 text-[15px]">/ Month</span></h2>
-                <button type="button" onClick={() => handlePlan(plan)}
-                  className={`w-full mt-6 px-6 py-3 rounded-xl transition-all ${index === 1 ? 'bg-white text-black hover:bg-gray-100' : 'bg-green-900 text-white hover:bg-green-800'}`}>
-                  Get Started
-                </button>
+             
               </div>
               <div className="mt-6">
                 <h4 className="text-base font-bold mb-4">Plan Includes</h4>
@@ -81,6 +78,10 @@ export default function PricingPlans() {
                   ))}
                 </ul>
               </div>
+              <button type="button" onClick={() => handlePlan(plan)}
+                  className={`w-full mt-6 px-6 py-3 rounded-xl transition-all ${index === 1 ? 'bg-white text-black hover:bg-gray-100' : 'bg-green-900 text-white hover:bg-green-800'}`}>
+                  Get Started
+                </button>
             </div>
           ))}
         </div>
