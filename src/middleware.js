@@ -4,7 +4,7 @@ export function middleware(request) {
   const { pathname } = request.nextUrl;
 
   // Routes that require authentication
-  const protectedRoutes = ['/subscription'];
+  const protectedRoutes = ['/subscription', '/profile'];
 
   // Check if the current route requires authentication
   const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));

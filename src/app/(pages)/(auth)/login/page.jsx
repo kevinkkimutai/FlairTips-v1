@@ -39,10 +39,11 @@ export default function Page() {
       const response = await loginUser(requestBody).unwrap();
       // Save token to cookies
       Cookies.set("access_token", response.data.access_token, { 
-        expires: 7, 
+        expires: 1/24, 
         secure: true, 
         sameSite: "Strict",
       });
+      localStorage.setItem("login_time", Date.now());
       
       // Dispatch setUser to update Redux state
       dispatch(setUser(response.data));

@@ -9,6 +9,7 @@ import LoginModal from "./LoginModal";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "@/redux/reducers/AuthReducers";
+import useAuthTimeout from "@/utils/useAuthTimeout";
 
 
 export default function LayoutWrapper({ children }) {
@@ -59,7 +60,7 @@ export default function LayoutWrapper({ children }) {
     setLoginModalOpen(false);
     setTimerActive(false);
   };
-
+  useAuthTimeout()
   return (
     <div className="w-full">
       {!hideNavbarFooter && <Navbar />}
