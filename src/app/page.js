@@ -12,6 +12,7 @@ import Testimonials from "@/components/home/Testimonials";
 import { selectUser } from "@/redux/reducers/AuthReducers";
 import { useSelector } from "react-redux";
 import LoginModal from "@/components/global/LoginModal";
+import ThankYou from "@/components/global/ThankYou";
 
 export default function Home() {
 
@@ -26,6 +27,7 @@ export default function Home() {
       <Team />
       <ContactUs />
       <Subscription />
+      <ThankYou />
 
     </div>
   );
