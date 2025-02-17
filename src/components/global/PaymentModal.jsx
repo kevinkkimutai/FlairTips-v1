@@ -1,7 +1,53 @@
+'use client'
+import { useGetPaymentMutation } from '@/redux/actions/paymentActions';
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
 export default function PaymentModal({ plan, onClose, user }) {
+  const [makePayment] = useGetPaymentMutation();
+  const [formData, setFormData] = useState({
+    phone: "",
+  });
+
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const requestBody = {
+        request: {
+          request_id: Date.now(),
+          data: {
+            plan_id: 1,
+            phone: formData.phone,
+            payment_id: user.id,
+            user_id: user.id,
+          },
+        },
+      };
+
+      const result = await makePayment(requestBody).unwrap();
+
+      if (result?.success) {
+        toast.success(result?.message || "Payment Prompt initiated successfully!");
+      } else {
+        toast.error(result?.message || "Payment failed!");
+      }
+    } catch (error) {
+      console.error("Error creating promp:", error);
+      toast.error(error?.data?.message || "Payment failed!");
+    }
+  };
+
   return (
     <>
 
@@ -34,13 +80,16 @@ export default function PaymentModal({ plan, onClose, user }) {
        <div className="mt-6">
          <input 
            type="text" 
+           name='phone'
            placeholder="Enter MPESA number" 
-          //  value={user?.phone || ""}
+           value={formData.phone}
+          onChange={handleChange}
            className="w-full bg-gray-100 rounded-md py-3 px-4 text-sm outline-none focus:ring-2 focus:ring-green-700"
          />
          <div className='flex gap-4'>
          <button 
            type="submit" 
+           onClick={handleSubmit}
            className="w-full mt-6 px-6 py-2 rounded-xl text-white bg-green-700 transition-all hover:bg-green-600"
          >
            Pay Now
