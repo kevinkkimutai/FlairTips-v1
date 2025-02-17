@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { parse, format } from "date-fns";
 
-export default function AllMatches({ activeDate }) {
+export default function AllMatches({ activeDate}) {
   const pPredictions = useSelector(selectPublicPredictions);
   const [openLeagues, setOpenLeagues] = useState([]);
   const [activeDateState, setActiveDateState] = useState(activeDate);
@@ -248,9 +248,14 @@ export default function AllMatches({ activeDate }) {
                 </div>
               );
             })}
+
+
           </div>
         );
       })}
+
+
+
     </div>
   );
 }

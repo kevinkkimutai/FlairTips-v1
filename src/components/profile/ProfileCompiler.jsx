@@ -90,16 +90,16 @@ export default function ProfileCompiler() {
 
   return (
     <>
-      <div className="flex gap-5 w-full">
+      <div className="flex max-md:flex-col gap-5 w-full">
         {/* Left section */}
-        <div className="w-1/3 flex flex-col gap-5">
+        <div className="md:w-1/3 w-full flex flex-col gap-5">
           <AvatarSection user={user} />
         </div>
 
         {/* Right section */}
         <div className="flex-1 flex flex-col gap-5">
           <DetailsSection user={user} handleOpenModal={handleOpenModal} />
-          <div className="flex gap-4">
+          <div className="flex max-md:flex-col gap-4">
             <HistorySection />
             <div className="flex-1 max-h-[400px] w-full flex flex-col gap-5">
               <ProfileActions user={user} />

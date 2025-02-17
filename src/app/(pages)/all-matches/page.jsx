@@ -61,6 +61,7 @@ export default function Page() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [pagenumber, setPagenumber] = useState(1);
+  const [totalPages, setTotalPages] = useState()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,7 +73,7 @@ export default function Page() {
             data: {
               date:  String(activeDate),
               type: "all",
-              page: 1,
+              page: pagenumber,
               country: String(countryFilter),
             },
           },
@@ -91,13 +92,15 @@ export default function Page() {
         // Fetch public predictions
         const publicResponse = await publicPredictions(requestBody).unwrap();
         dispatch(setPublicPredictions(publicResponse.data));
+        setTotalPages(publicResponse.count)
 
         // Fetch subscriber predictions if user is subscribed
         if (user?.is_subscribed === 1) {
           const subscriberResponse = await subscriberPredictions(requestBody).unwrap();
           dispatch(setPublicPredictions(subscriberResponse.data));
+          setTotalPages(subscriberResponse.count)
         }
-
+        
         setLoading(false);
       } catch (err) {
         console.error("Failed to fetch data:", err);
@@ -106,7 +109,7 @@ export default function Page() {
     };
 
     fetchData();
-  }, [publicPredictions, getCountries, subscriberPredictions, dispatch, user, countryFilter]);
+  }, [publicPredictions, getCountries, subscriberPredictions, dispatch, user, countryFilter, pagenumber]);
 
   const handleCountryFilter = (countryName) => {
     setCountryFilter(countryName);
@@ -117,6 +120,7 @@ console.log("selected country", countryFilter);
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
   }
 console.log("activeDate", activeDate);
+
 
   return (
     <div className="py- lg:py-5 max-md:px-0 max-2xl:px-4">
@@ -142,8 +146,50 @@ console.log("activeDate", activeDate);
               activeDate={activeDate}
               setPagenumber={setPagenumber}
               pagenumber={pagenumber}
+              totalPages={totalPages}
             />
           </div>
+              {/* pagination */}
+<nav className="flex w-full mt-6">
+  <ul className="inline-flex -space-x-px text-sm mx-auto">
+    {/* Previous Button */}
+    <li>
+      <button
+        onClick={() => pagenumber > 1 && setPagenumber(pagenumber - 1)}
+        className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${pagenumber === 1 ? "cursor-not-allowed text-gray-300" : ""}`}
+        disabled={pagenumber === 1}
+      >
+        Previous
+      </button>
+    </li>
+    
+    {/* Page Numbers */}
+    {[...Array(totalPages)].map((_, index) => {
+      const page = index + 1;
+      return (
+        <li key={page}>
+          <button
+            onClick={() => setPagenumber(page)}
+            className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${pagenumber === page ? "bg-green-500 text-white" : ""}`}
+          >
+            {page}
+          </button>
+        </li>
+      );
+    })}
+    
+    {/* Next Button */}
+    <li>
+      <button
+        onClick={() => pagenumber < totalPages && setPagenumber(pagenumber + 1)}
+        className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${pagenumber === totalPages ? "cursor-not-allowed text-gray-300" : ""}`}
+        disabled={pagenumber === totalPages}
+      >
+        Next
+      </button>
+    </li>
+  </ul>
+</nav>
         </div>
       </div>
     </div>

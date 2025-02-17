@@ -6,12 +6,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import { selectSubscription } from "@/redux/reducers/subscriptionReducers";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const user = useSelector(selectUser);
+  const subscription = useSelector(selectSubscription);
   const [currentUser] = useGetCurrentUserMutation();
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -23,11 +26,13 @@ export default function Navbar() {
       };
 
       try {
+        // Fetch user details
         const response = await currentUser(requestBody).unwrap();
         console.log("User details fetched", response);
         dispatch(setUser(response.data));
+
       } catch (error) {
-        toast.error("Please log in.");
+        console.log("Please log in.", error);
       }
     };
 
@@ -64,7 +69,6 @@ export default function Navbar() {
     window.location.href = "/"; 
   };
 
-  console.log("user:", user);
 
   return (
     <div className="w-full bg-white text-black">

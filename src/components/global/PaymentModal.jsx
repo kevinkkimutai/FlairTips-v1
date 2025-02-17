@@ -27,7 +27,7 @@ export default function PaymentModal({ plan, onClose, user }) {
         request: {
           request_id: Date.now(),
           data: {
-            plan_id: 1,
+            plan_id: plan.id,
             phone: formData.phone,
             payment_id: user.id,
             user_id: user.id,

@@ -13,22 +13,26 @@ export default function PricingPlans() {
 
   const plans = [
     {
-      title: 'Basic',
-      description: 'Ideal for individuals who need quick access to basic features.',
+      id: 1,
+      title: 'Advanced Betting Plan',
+      description: 'Access essential features and weekly predictions to enhance your betting strategies. Perfect for beginners.',
       amount: 300,
-      // features: ['50 Image generations', '500 Credits', 'Monthly 100 Credits Free', 'Customer Support', 'Dedicated Server', 'Priority Generations', '50GB Cloud Storage']
+      period: "week",
     },
     {
-      title: 'Professional',
-      description: 'Ideal for individuals who need advanced features and tools for client work.',
+      id: 2,
+      title: 'Starter Plan',
+      description: 'Get advanced features, detailed predictions, and tools for daily bettors seeking a competitive edge.',
       amount: 50,
-      // features: ['500 Image generations', '300 Credits', 'Monthly 1000 Credits Free', 'Customer Support', 'Dedicated Server', 'Priority Generations', '200GB Cloud Storage']
+      period: "day",
     },
     {
-      title: 'Enterprise',
-      description: 'For teams and organizations needing powerful tools and unlimited access.',
+      id: 3,
+      title: 'Ultimate Betting Plan',
+      description: 'Unlock unlimited access to premium tools and data analysis for serious bettors and teams.',
       amount: 1000,
-      // features: ['Unlimited Image generations', 'Unlimited Credits', 'Custom AI Models', 'Dedicated Account Manager', 'Enterprise Support', 'VIP Generations', '1TB Cloud Storage']
+      period: "month",
+    
     }
   ];
 
@@ -59,15 +63,15 @@ export default function PricingPlans() {
         <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-16 max-md:max-w-lg max-md:mx-auto">
           {plans.map((plan, index) => (
             <div key={index} className={`rounded sm:p-6 p-4 shadow-lg ${index === 1 ? 'bg-green-600 text-white' : 'bg-white'}`}>
-              <h3 className="text-xl font-semibold">{plan.title}</h3>
+              <h3 className="text-[20px] md:text-[24px] font-bold">{plan.title}</h3>
               <p className="mt-2">{plan.description}</p>
               <div className="mt-6">
-                <h2 className="text-4xl font-semibold">Ksh: {plan.amount}<span className="text-gray-500 ml-2 text-[15px]">/ Month</span></h2>
+                <h2 className="text-4xl font-semibold">Ksh: {plan.amount}<span className={`${index === 1 ? "text-gray-200" : "text-gray-500"}  ml-2 text-[15px]`}>/ {plan.period}</span></h2>
              
               </div>
-              <div className="mt-6">
+              {/* <div className="mt-6">
                 <h4 className="text-base font-bold mb-4">Plan Includes</h4>
-                {/* <ul className="space-y-5">
+                <ul className="space-y-5">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" className={`mr-4 ${index === 1 ? 'fill-white' : 'fill-green-500'}`} viewBox="0 0 24 24">
@@ -76,8 +80,8 @@ export default function PricingPlans() {
                       {feature}
                     </li>
                   ))}
-                </ul> */}
-              </div>
+                </ul>
+              </div> */}
               <button type="button" onClick={() => handlePlan(plan)}
                   className={`w-full mt-6 px-6 py-3 rounded-xl transition-all ${index === 1 ? 'bg-white text-black hover:bg-gray-100' : 'bg-green-900 text-white hover:bg-green-800'}`}>
                   Get Started

@@ -7,15 +7,15 @@ import MobileBottomBar from "./MobileBottomBar";
 import SuscriptionModal from "./SuscriptionModal";
 import LoginModal from "./LoginModal";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "@/redux/reducers/AuthReducers";
 import useAuthTimeout from "@/utils/useAuthTimeout";
+import { selectSubscription, setSubscription } from "@/redux/reducers/subscriptionReducers";
+import { useGetSubscriptionMutation } from "@/redux/actions/subscriptionActions";
 
 
 export default function LayoutWrapper({ children }) {
   const pathname = usePathname();
-
-  // Define the routes where the Navbar, Footer, and Modals should be hidden
   const authRoutes = ["/login", "/register", "/forgot-password", "/reset-password"];
   const hideNavbarFooter = authRoutes.includes(pathname);
   const hideModals = hideNavbarFooter;
@@ -25,11 +25,37 @@ export default function LayoutWrapper({ children }) {
   const [timerActive, setTimerActive] = useState(false);
 
   const user = useSelector(selectUser);
+  const subscription = useSelector(selectSubscription);
+  const [subscriptionDetails] = useGetSubscriptionMutation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchSubscription= async () => {
+      const requestBody = {
+        request: {
+          request_id: Date.now(),
+          data: {},
+        },
+      };
+
+      try {
+      
+        // Fetch subscription details
+        const res = await subscriptionDetails(requestBody).unwrap();
+        dispatch(setSubscription(res.data));
+        console.log("User subscription", res.data);
+      } catch (error) {
+        console.log("Please log in.");
+      }
+    };
+
+    fetchSubscription();
+  }, [subscriptionDetails, dispatch]);
 
   useEffect(() => {
     if (!hideModals) {
       const initialTimeout = setTimeout(() => {
-        if (user && user?.is_subscribed !== 0) {
+        if (user && subscription?.is_subscribed === 0) {
           setIsModalOpen(true);
         }
         if (!user) {
@@ -44,7 +70,7 @@ export default function LayoutWrapper({ children }) {
   useEffect(() => {
     if (!hideModals && !timerActive && !isModalOpen) {
       const delayInterval = setInterval(() => {
-        if (user && user?.is_subscribed !== 1) {
+        if (user &&  subscription?.is_subscribed === 0) {
           setIsModalOpen(true);
         }
       }, 3 * 60 * 1000); 
@@ -66,6 +92,7 @@ export default function LayoutWrapper({ children }) {
       {!hideNavbarFooter && <Navbar />}
       <div className="max-w-[1280px] mx-auto max-2xl:px-4  max-md:mb-20">
         {children}
+        {subscription?.is_subscribed}
         {!hideModals && (
           <>
             <SuscriptionModal isOpen={isModalOpen} onClose={closeModal} />
