@@ -146,48 +146,63 @@ console.log("activeDate", activeDate);
               activeDate={activeDate}
               setPagenumber={setPagenumber}
               pagenumber={pagenumber}
+              loading={loading}
               totalPages={totalPages}
             />
           </div>
               {/* pagination */}
 <nav className="flex w-full mt-6">
   <ul className="inline-flex -space-x-px text-sm mx-auto">
-    {/* Previous Button */}
-    <li>
+  {/* Previous Button */}
+<li>
+  <button
+    onClick={() => {
+      if (pagenumber > 1) {
+        setPagenumber(pagenumber - 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }}
+    className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${pagenumber === 1 ? "cursor-not-allowed text-gray-300" : ""}`}
+    disabled={pagenumber === 1}
+  >
+    Previous
+  </button>
+</li>
+
+{/* Page Numbers */}
+{[...Array(totalPages)].map((_, index) => {
+  const page = index + 1;
+  return (
+    <li key={page}>
       <button
-        onClick={() => pagenumber > 1 && setPagenumber(pagenumber - 1)}
-        className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${pagenumber === 1 ? "cursor-not-allowed text-gray-300" : ""}`}
-        disabled={pagenumber === 1}
+        onClick={() => {
+          setPagenumber(page);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${pagenumber === page ? "bg-green-500 text-white" : ""}`}
       >
-        Previous
+        {page}
       </button>
     </li>
-    
-    {/* Page Numbers */}
-    {[...Array(totalPages)].map((_, index) => {
-      const page = index + 1;
-      return (
-        <li key={page}>
-          <button
-            onClick={() => setPagenumber(page)}
-            className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${pagenumber === page ? "bg-green-500 text-white" : ""}`}
-          >
-            {page}
-          </button>
-        </li>
-      );
-    })}
-    
-    {/* Next Button */}
-    <li>
-      <button
-        onClick={() => pagenumber < totalPages && setPagenumber(pagenumber + 1)}
-        className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${pagenumber === totalPages ? "cursor-not-allowed text-gray-300" : ""}`}
-        disabled={pagenumber === totalPages}
-      >
-        Next
-      </button>
-    </li>
+  );
+})}
+
+{/* Next Button */}
+<li>
+  <button
+    onClick={() => {
+      if (pagenumber < totalPages) {
+        setPagenumber(pagenumber + 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }}
+    className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${pagenumber === totalPages ? "cursor-not-allowed text-gray-300" : ""}`}
+    disabled={pagenumber === totalPages}
+  >
+    Next
+  </button>
+</li>
+
   </ul>
 </nav>
         </div>

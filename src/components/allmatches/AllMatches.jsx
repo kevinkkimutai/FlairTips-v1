@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { parse, format } from "date-fns";
 
-export default function AllMatches({ activeDate}) {
+export default function AllMatches({ activeDate, loading}) {
   const pPredictions = useSelector(selectPublicPredictions);
   const [openLeagues, setOpenLeagues] = useState([]);
   const [activeDateState, setActiveDateState] = useState(activeDate);
@@ -37,6 +37,9 @@ export default function AllMatches({ activeDate}) {
     return <div>No matches available for the selected date.</div>;
   }
 
+    if (loading) {
+    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+  }
   return (
     <div>
       {Object.keys(pPredictions).map((country, countryIndex) => {

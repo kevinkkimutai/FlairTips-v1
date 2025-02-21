@@ -92,7 +92,7 @@ export default function LayoutWrapper({ children }) {
       {!hideNavbarFooter && <Navbar />}
       <div className="max-w-[1280px] mx-auto max-2xl:px-4  max-md:mb-20">
         {children}
-        {subscription?.is_subscribed}
+      
         {!hideModals && (
           <>
             <SuscriptionModal isOpen={isModalOpen} onClose={closeModal} />
