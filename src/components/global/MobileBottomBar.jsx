@@ -46,7 +46,7 @@ export default function MobileBottomBar() {
           </span>
         </a>
         <a
-          href="/"
+          href="/about"
           className="inline-flex flex-col items-center justify-center rounded px-5 hover:bg-green-100  group"
         >
           <svg
@@ -65,7 +65,7 @@ export default function MobileBottomBar() {
             />
           </svg>
           <span className="text-xs text-white group-hover:text-green-600 ">
-            Settings
+           About
           </span>
         </a>
         {user ? (

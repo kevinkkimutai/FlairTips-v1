@@ -46,10 +46,10 @@ export default function Navbar() {
     setMenuOpen(false);
   };
   const navlinks = [
-    {
-      label: "Home",
-      href: "/",
-    },
+    // {
+    //   label: "Home",
+    //   href: "/",
+    // },
     {
       label: "All Matches",
       href: "/all-matches",
@@ -75,10 +75,10 @@ export default function Navbar() {
       <div className="max-w-[1280px] mx-auto relative border-b-2">
         <header className="flex  py-4 max-2xl:px-4  font-sans min-h-[70px] tracking-wide relative z-50">
           <div className="flex flex-wrap items-center justify-between gap-4 w-full max-w-screen-xl mx-auto">
-            <a href="#" className="max-sm:hidden">
+            <a href="/" className="max-sm:hidden">
               <p className="w-36 font-bold text-xl">Kelvin</p>
             </a>
-            <a href="#" className="hidden max-sm:block">
+            <a href="/" className="hidden max-sm:block">
               <p className="w-9 h-9 bg-green-400 items-center  flex justify-center font-bold text-xl rounded-lg">
                 K
               </p>

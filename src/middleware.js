@@ -3,6 +3,10 @@ import { NextResponse } from "next/server";
 export function middleware(request) {
   const { pathname } = request.nextUrl;
 
+   // Redirect the homepage `/` to `/all-matches`
+   if (pathname === "/") {
+    return NextResponse.redirect(new URL('/all-matches', request.url));
+  }
   // Routes that require authentication
   const protectedRoutes = ['/subscription', '/profile'];
 

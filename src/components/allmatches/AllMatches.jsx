@@ -37,8 +37,14 @@ export default function AllMatches({ activeDate, loading}) {
     return <div>No matches available for the selected date.</div>;
   }
 
-    if (loading) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex flex-col space-y-4 p-4">
+        {[...Array(10)].map((_, index) => (
+          <div key={index} className="animate-pulse bg-gray-200 h-16 w-full rounded"></div>
+        ))}
+      </div>
+    );
   }
   return (
     <div>
