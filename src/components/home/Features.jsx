@@ -4,9 +4,9 @@ export default function Features() {
   return (
     <div className="mt-32 max-w-7xl mx-auto">
       <div className="mb-16 max-w-2xl text-center mx-auto">
-        <h2 className="md:text-4xl text-3xl font-extrabold mb-6">Our Betting Features</h2>
+        <h2 className="md:text-4xl text-3xl font-extrabold mb-6">Daily Match Predictions</h2>
         <p className="mt-6">
-          Get the edge you need with expertly curated tips and innovative betting slip features.
+        Get expert analysis and predictions on football, basketball, and other major sports.
         </p>
       </div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 max-md:max-w-lg mx-auto gap-8">
@@ -20,9 +20,9 @@ export default function Features() {
             <path d="..." /> {/* Adjusted SVG for uniqueness */}
           </svg>
           <div>
-            <h3 className="text-xl font-semibold mb-2">Expert Betting Tips</h3>
+            <h3 className="text-xl font-semibold mb-2">Data-Driven Insights</h3>
             <p>
-              Access top-tier betting tips from experienced analysts to maximize your chances.
+            Our AI-powered system analyzes team form, player stats, and historical trends to generate reliable forecasts.
             </p>
           </div>
         </div>
@@ -37,9 +37,9 @@ export default function Features() {
             <path d="..." /> {/* Adjusted SVG for uniqueness */}
           </svg>
           <div>
-            <h3 className="text-xl font-semibold mb-2">Real-Time Updates</h3>
+            <h3 className="text-xl font-semibold mb-2">Live Updates & Tips</h3>
             <p>
-              Stay informed with live updates on odds, matches, and your betting progress.
+            Stay ahead with real-time updates, betting tips, and match insights.
             </p>
           </div>
         </div>
@@ -53,9 +53,9 @@ export default function Features() {
             <path d="..." /> {/* Adjusted SVG for uniqueness */}
           </svg>
           <div>
-            <h3 className="text-xl font-semibold mb-2">Customizable Alerts</h3>
+            <h3 className="text-xl font-semibold mb-2">Exclusive Subscriber Content</h3>
             <p>
-              Set alerts for odds changes, new tips, and match results to stay ahead.
+            Unlock premium predictions and high-accuracy betting strategies by becoming a subscriber.
             </p>
           </div>
         </div>

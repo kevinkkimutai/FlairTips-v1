@@ -116,9 +116,9 @@ export default function Page() {
   };
 console.log("selected country", countryFilter);
 
-  if (loading) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div className="flex items-center justify-center h-screen">Loading...</div>;
+  // }
 console.log("activeDate", activeDate);
 
 

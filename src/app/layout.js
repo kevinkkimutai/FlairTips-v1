@@ -14,13 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "FlairTips",
-  description: "FlairTips description",
+  title: "Next JS",
+  description: "Nextjs description",
   keywords: ["betting", "Tips", "predictions", "todays predictions", "Todays tips", "Todays matches"],
   alternates: {
-    canonical: "hhttps://flairtips.com",
+    canonical: "hhttps://nextjs.com",
     languages: {
-      "en-US": "https://flairtips.com/",
+      "en-US": "https://nextjs.com/",
     },
   },
   robots: {
@@ -28,28 +28,28 @@ export const metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Flairtips",
+    title: "Nextjs",
     description:
-      "FlairTips Predictions",
-    url: "https://flairtips.com",
+      "Nextjs Predictions",
+    url: "https://nextjs.com",
     type: "website",
     images: [
       {
-        url: "https://flairtips.com/favicon.ico",
+        url: "https://nextjs.com/favicon.ico",
         width: 1200,
         height: 630,
-        alt: "FlairTips",
+        alt: "Nextjs",
       },
     ],
   },
   twitter: {
-    card: "FlairTips",
+    card: "Nextjs",
     title: "Flaitips Predictions",
-    site:  "https://flairtips.com",
+    site:  "https://nextjs.com",
     description:
-      "FlairTips Predictions",
+      "Nextjs Predictions",
     images: [
-      "https://flairtips.com/favicon.ico",
+      "https://nextjs.com/favicon.ico",
     ],
   },
 };
