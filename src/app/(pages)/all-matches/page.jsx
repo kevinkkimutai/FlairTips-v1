@@ -44,13 +44,18 @@ export default function Page() {
     dates.push(newDate);
   }
 
-  // Helper function to format a date like "Tue Feb 3"
-  const formatDate = (date) => {
-    return date.toLocaleDateString(undefined, {
-      month: 'short',
-      day: 'numeric',
-    });
-  };
+// Helper function to format a date as "YYYY-MM-DD"
+const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); 
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
+// Example usage
+console.log(formatDate(new Date())); 
+
 
   const [activeDate, setActiveDate] = useState(formatDate(today));
   const user = useSelector(selectUser);
