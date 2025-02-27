@@ -7,6 +7,9 @@ import { selectCountries } from '@/redux/reducers/countryReducers'
 export default function CountryList({handleCountryFilter}) {
   const countries = useSelector(selectCountries) 
 
+  console.log("CountryList", countries);
+  
+
   return (
     <div className="flex flex-col gap-4 md:sticky md:top-0  overflow-scroll bg-white hide-scrollba">
       <div
@@ -15,14 +18,14 @@ export default function CountryList({handleCountryFilter}) {
           COUNTRIES
         </div>
         <div className='overflow-scroll max-h-[95vh] flex flex-col  gap-4'>
-      {countries?.data?.map((country) => (
+      {countries?.map((country) => (
         <div
           key={country.id}
           onClick={() => handleCountryFilter(country.id)}
           className="flex items-center gap-4 bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
         >
           {/* Country Flag */}
-          <div className="w-16 h-10">
+          <div className="w-10 ">
             {country.flag ? (
               <img
                 src={country.flag}

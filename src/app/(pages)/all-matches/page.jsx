@@ -1,61 +1,51 @@
-'use client';
+"use client";
 
-import AllMatches from '@/components/allmatches/AllMatches';
-import CountryList from '@/components/allmatches/CountryList';
-import MatchesNavigation from '@/components/allmatches/MatchesNavigation';
-import MatchesSection from '@/components/allmatches/MatchesSection';
-import { useGetCountriesMutation } from '@/redux/actions/countryActions';
-import { useGetPublicPredictionsMutation, useGetSubscriberFixesMutation } from '@/redux/actions/publicPredictionsActions';
-import { selectUser } from '@/redux/reducers/AuthReducers';
-import { setCountries } from '@/redux/reducers/countryReducers';
-import { setPublicPredictions } from '@/redux/reducers/publicPredictionsReducers';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import AllMatches from "@/components/allmatches/AllMatches";
+import CountryList from "@/components/allmatches/CountryList";
+import MatchesNavigation from "@/components/allmatches/MatchesNavigation";
+import MatchesSection from "@/components/allmatches/MatchesSection";
+import {
+  useGetCountriesMutation,
+} from "@/redux/actions/countryActions";
+import {
+  useGetPublicPredictionsMutation,
+  useGetSubscriberFixesMutation,
+} from "@/redux/actions/publicPredictionsActions";
+import { selectUser } from "@/redux/reducers/AuthReducers";
+import { setCountries } from "@/redux/reducers/countryReducers";
+import { setPublicPredictions } from "@/redux/reducers/publicPredictionsReducers";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Page() {
   const dates = [];
   const today = new Date();
-
-  // Get yesterday's date.
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
- 
 
-  // Add 3 days before yesterday
-  for (let i =2; i > 0; i--) {
+  // Add previous dates
+  for (let i = 2; i > 0; i--) {
     const newDate = new Date(yesterday);
     newDate.setDate(yesterday.getDate() - i);
     dates.push(newDate);
   }
 
-  // Add yesterday, today, and tomorrow with labels
+  // Add yesterday, today, and tomorrow
   const range = [
-    { label: 'Yesterday', date: yesterday },
-    { label: 'Today', date: new Date(today) },
-    { label: 'Tomorrow', date: new Date(today.getTime() + 24 * 60 * 60 * 1000) },
+    { label: "Yesterday", date: yesterday },
+    { label: "Today", date: new Date(today) },
+    { label: "Tomorrow", date: new Date(today.getTime() + 24 * 60 * 60 * 1000) },
   ];
 
-  dates.push(...range.map(item => item.date));
+  dates.push(...range.map((item) => item.date));
 
-  // Add 5 days after tomorrow
-  for (let i = 1; i <= 0; i++) {
-    const newDate = new Date(range[2].date.getTime());
-    newDate.setDate(range[2].date.getDate() + i);
-    dates.push(newDate);
-  }
-
-// Helper function to format a date as "YYYY-MM-DD"
-const formatDate = (date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0"); 
-  const day = String(date.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-};
-
-// Example usage
-console.log(formatDate(new Date())); 
-
+  // Helper function to format date as "YYYY-MM-DD"
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   const [activeDate, setActiveDate] = useState(formatDate(today));
   const user = useSelector(selectUser);
@@ -66,66 +56,101 @@ console.log(formatDate(new Date()));
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [pagenumber, setPagenumber] = useState(1);
-  const [totalPages, setTotalPages] = useState()
+  const [totalPages, setTotalPages] = useState();
+  const containerRef = useRef(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const requestBody = {
-          request: {
-            request_id: Date.now(),
-            data: {
-              date:  String(activeDate),
-              type: "all",
-              page: pagenumber,
-              country: String(countryFilter),
-            },
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+
+      const requestBody = {
+        request: {
+          request_id: Date.now(),
+          data: {
+            date: String(activeDate),
+            type: "all",
+            page: pagenumber,
+            country: String(countryFilter),
           },
-        };
-        const countryRequestBody = {
-          request: {
-            request_id: Date.now(),
-            data: {},
-          },
-        };
+        },
+      };
+
+      const countryRequestBody = {
+        request: {
+          request_id: Date.now(),
+          data: {},
+        },
+      };
 
         // Fetch countries
         const country = await getCountries(countryRequestBody).unwrap();
         dispatch(setCountries(country));
+        console.log("country", country.data);
+      // Fetch public predictions
+      const publicResponse = await publicPredictions(requestBody).unwrap();
+      dispatch(
+        setPublicPredictions({
+          publicpredictions: publicResponse.data,
+          page: pagenumber,
+        })
+      );
+      setTotalPages(publicResponse.count);
 
-        // Fetch public predictions
-        const publicResponse = await publicPredictions(requestBody).unwrap();
-        dispatch(setPublicPredictions(publicResponse.data));
-        setTotalPages(publicResponse.count)
+      // Fetch subscriber predictions if user is subscribed
+      if (user?.is_subscribed === 1) {
+        const subscriberResponse = await subscriberPredictions(requestBody).unwrap();
+        dispatch(
+          setPublicPredictions({
+            publicpredictions: subscriberResponse.data,
+            page: pagenumber,
+          })
+        );
+        setTotalPages(subscriberResponse.count);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        // Fetch subscriber predictions if user is subscribed
-        if (user?.is_subscribed === 1) {
-          const subscriberResponse = await subscriberPredictions(requestBody).unwrap();
-          dispatch(setPublicPredictions(subscriberResponse.data));
-          setTotalPages(subscriberResponse.count)
+  fetchData();
+}, [getCountries, activeDate, pagenumber, countryFilter, user?.is_subscribed]);
+
+const handleCountryFilter = (countryName) => {
+  setCountryFilter(countryName);
+};
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (containerRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+        const triggerPoint = scrollHeight * 0.95; // Load when 75% scrolled
+  
+        if (scrollTop + clientHeight >= triggerPoint) {
+          setPagenumber((prev) => {
+            if (prev < totalPages) {
+              return prev + 1;
+            }
+            return prev; // Prevent unnecessary updates
+          });
         }
-        
-        setLoading(false);
-      } catch (err) {
-        console.error("Failed to fetch data:", err);
-        setLoading(false);
       }
     };
-
-    fetchData();
-  }, [publicPredictions, getCountries, subscriberPredictions, dispatch, user, countryFilter, pagenumber]);
-
-  const handleCountryFilter = (countryName) => {
-    setCountryFilter(countryName);
-  };
-console.log("selected country", countryFilter);
-
-  // if (loading) {
-  //   return <div className="flex items-center justify-center h-screen">Loading...</div>;
-  // }
-console.log("activeDate", activeDate);
-
+  
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
+  
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [pagenumber, totalPages]);
+  
 
   return (
     <div className="py- lg:py-5 max-md:px-0 max-2xl:px-4">
@@ -144,9 +169,14 @@ console.log("activeDate", activeDate);
             range={range}
             formatDate={formatDate}
           />
-          <div className="mt-5 md:mt-6 h-[95vh] overflow-scroll hide-scrollbar">
+          <div
+            className="mt-5 md:mt-6 h-[95vh] overflow-scroll hide-scrollbar"
+            ref={containerRef}
+          >
             <MatchesSection />
-            <h2 className="mb-2 font-bold text-[14px] max-lg:text-[12px]">All Matches</h2>
+            <h2 className="mb-2 font-bold text-[14px] max-lg:text-[12px]">
+              All Matches
+            </h2>
             <AllMatches
               activeDate={activeDate}
               setPagenumber={setPagenumber}
@@ -155,61 +185,6 @@ console.log("activeDate", activeDate);
               totalPages={totalPages}
             />
           </div>
-              {/* pagination */}
-<nav className="flex w-full mt-6">
-  <ul className="inline-flex -space-x-px text-sm mx-auto">
-  {/* Previous Button */}
-<li>
-  <button
-    onClick={() => {
-      if (pagenumber > 1) {
-        setPagenumber(pagenumber - 1);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }}
-    className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${pagenumber === 1 ? "cursor-not-allowed text-gray-300" : ""}`}
-    disabled={pagenumber === 1}
-  >
-    Previous
-  </button>
-</li>
-
-{/* Page Numbers */}
-{[...Array(totalPages)].map((_, index) => {
-  const page = index + 1;
-  return (
-    <li key={page}>
-      <button
-        onClick={() => {
-          setPagenumber(page);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-        className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${pagenumber === page ? "bg-green-500 text-white" : ""}`}
-      >
-        {page}
-      </button>
-    </li>
-  );
-})}
-
-{/* Next Button */}
-<li>
-  <button
-    onClick={() => {
-      if (pagenumber < totalPages) {
-        setPagenumber(pagenumber + 1);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }}
-    className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${pagenumber === totalPages ? "cursor-not-allowed text-gray-300" : ""}`}
-    disabled={pagenumber === totalPages}
-  >
-    Next
-  </button>
-</li>
-
-  </ul>
-</nav>
         </div>
       </div>
     </div>

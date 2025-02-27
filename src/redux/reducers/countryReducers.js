@@ -22,4 +22,4 @@ const CountriesSlice = createSlice({
 
 export const { setCountries, setLoading, setError } = CountriesSlice.actions;
 export default CountriesSlice.reducer;
-export const selectCountries = (state) => state.countries.countries
+export const selectCountries = (state) => state.countries.countries?.data
