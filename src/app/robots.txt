@@ -2,17 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://flairtips/sitemap.xml
-
-
- // Fetch public predictions
-        const publicResponse = await publicPredictions(requestBody).unwrap();
-        dispatch(setPublicPredictions(publicResponse.data));
-        setTotalPages(publicResponse.count)
-        console.error("Failed to fetch data:", publicResponse);
-
-        // Fetch subscriber predictions if user is subscribed
-        if (user?.is_subscribed === 1) {
-          const subscriberResponse = await subscriberPredictions(requestBody).unwrap();
-          dispatch(setPublicPredictions(subscriberResponse.data));
-          setTotalPages(subscriberResponse.count)
-        }
