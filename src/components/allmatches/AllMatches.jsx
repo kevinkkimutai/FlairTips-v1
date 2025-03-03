@@ -33,7 +33,6 @@ export default function AllMatches({ activeDate, loading }) {
         });
       });
 
-      console.log("Total number of matches:", totalMatches);
     }
   }, [pPredictions]);
 

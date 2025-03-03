@@ -97,7 +97,6 @@ export default function Page() {
         // Fetch countries
         const country = await getCountries(countryRequestBody).unwrap();
         dispatch(setCountries(country));
-        console.log("country", country.data);
       // Fetch public predictions
       const publicResponse = await publicPredictions(pubsRequestBody).unwrap();
       dispatch(
@@ -145,7 +144,7 @@ const handleCountryFilter = (countryName) => {
             if (prev < totalPages) {
               return prev + 1;
             }
-            return prev; // Prevent unnecessary updates
+            return prev; 
           });
         }
       }
@@ -185,7 +184,7 @@ const handleCountryFilter = (countryName) => {
             className="mt-5 md:mt-6 h-[95vh] overflow-scroll hide-scrollbar"
             ref={containerRef}
           >
-            <MatchesSection />
+            {/* <MatchesSection /> */}
             <h2 className="mb-2 font-bold text-[14px] max-lg:text-[12px]">
               All Matches
             </h2>
