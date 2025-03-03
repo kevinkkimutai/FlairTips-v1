@@ -64,7 +64,18 @@ export default function Page() {
     try {
       setLoading(true);
 
-      const requestBody = {
+      const pubsRequestBody = {
+        request: {
+          request_id: Date.now(),
+          data: {
+            date: String(activeDate),
+            type: "all",
+            page: 1,
+            country: String(countryFilter),
+          },
+        },
+      };
+      const subsrequestBody = {
         request: {
           request_id: Date.now(),
           data: {
@@ -88,18 +99,19 @@ export default function Page() {
         dispatch(setCountries(country));
         console.log("country", country.data);
       // Fetch public predictions
-      const publicResponse = await publicPredictions(requestBody).unwrap();
+      const publicResponse = await publicPredictions(pubsRequestBody).unwrap();
       dispatch(
         setPublicPredictions({
           publicpredictions: publicResponse.data,
-          page: pagenumber,
+          page: 1,
         })
       );
-      setTotalPages(publicResponse.count);
+      setTotalPages(1);
+
 
       // Fetch subscriber predictions if user is subscribed
       if (user?.is_subscribed === 1) {
-        const subscriberResponse = await subscriberPredictions(requestBody).unwrap();
+        const subscriberResponse = await subscriberPredictions(subsrequestBody).unwrap();
         dispatch(
           setPublicPredictions({
             publicpredictions: subscriberResponse.data,
