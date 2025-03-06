@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { selectSubscription } from "@/redux/reducers/subscriptionReducers";
+import Image from "next/image";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -59,9 +60,14 @@ export default function Navbar() {
       href: "/about",
     },
     {
+      label: "Pricing",
+      href: "/pricing",
+    },
+    {
       label: "Contact Us",
       href: "/contact-us",
     },
+   
   ];
 
   const handleLogout = () => {
@@ -76,13 +82,22 @@ export default function Navbar() {
         <header className="flex  py-4 max-2xl:px-4  font-sans min-h-[70px] tracking-wide relative z-50">
           <div className="flex flex-wrap items-center justify-between gap-4 w-full max-w-screen-xl mx-auto">
             <a href="/" className="max-sm:hidden">
-              <p className="w-36 font-bold text-xl">Kelvin</p>
+            <Image
+              src="/flair.webp"
+              width={100}
+              height={100}
+              alt="flairtips"
+              className="w-24 font-bold text-xl" />
             </a>
             <a href="/" className="hidden max-sm:block">
-              <p className="w-9 h-9 bg-green-400 items-center  flex justify-center font-bold text-xl rounded-lg">
-                K
-              </p>
-            </a>
+              <Image
+              width={100}
+              height={100}
+               alt="flairtips"
+              src="/flair.webp"
+              className="w-16 items-center  flex justify-center font-bold text-xl rounded-lg" />
+              
+              </a>
 
             <div
               className={`${
@@ -109,7 +124,7 @@ export default function Navbar() {
                 </svg>
               </button>
 
-              <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-md:h-[91vh] max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-10">
+              <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-md:h-[91vh] max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
                 <li className="mb-6 hidden max-lg:block">
                   <Link href="/" onClick={closeMenu}>
                     <p className="w-36 font-bold"> FlairTips</p>
