@@ -1,28 +1,25 @@
 import React from 'react'
 
 export const metadata = {
-  title: "Privacy-Policy | FlairTips",
-  description: "FlairTips description",
+  title: "Privacy Policy | Your Data & Security Matters",
+  description: "Read our Privacy Policy to understand how we collect, use, and protect your personal data. We prioritize your privacy and ensure a secure betting tips experience.",
   keywords: ["betting", "Tips", "predictions", "todays predictions", "Todays tips", "Todays matches"],
   alternates: {
-    canonical: "hhttps://flairtips.com",
-    languages: {
-      "en-US": "https://flairtips.com/",
-    },
+    canonical: "https://flairtips.com/privacy-policy",
   },
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "Privacy-Policy | FlairTips",
+    title: "Privacy Policy | Your Data & Security Matters",
     description:
-      "FlairTips Predictions",
-    url: "https://flairtips.com",
+      "Read our Privacy Policy to understand how we collect, use, and protect your personal data. We prioritize your privacy and ensure a secure betting tips experience.",
+    url: "https://flairtips.com/privacy-policy",
     type: "website",
     images: [
       {
-        url: "https://flairtips.com/favicon.ico",
+        url: "https://flairtips.com/flair.webp",
         width: 1200,
         height: 630,
         alt: "FlairTips",
@@ -30,13 +27,13 @@ export const metadata = {
     ],
   },
   twitter: {
-    card: "FlairTips",
-    title: "Privacy-Policy | FlairTips",
-    site:  "https://flairtips.com",
+    card: "summary_large_image",
+    title: "Privacy Policy | Your Data & Security Matters",
+    site:  "https://flairtips.com/privacy-policy",
     description:
-      "FlairTips Predictions",
+      "Read our Privacy Policy to understand how we collect, use, and protect your personal data. We prioritize your privacy and ensure a secure betting tips experience.",
     images: [
-      "https://flairtips.com/favicon.ico",
+      "https://flairtips.com/flair.webp",
     ],
   },
 };

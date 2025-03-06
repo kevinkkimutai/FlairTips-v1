@@ -7,7 +7,6 @@ export default async function GET() {
   const staticRoutes = [
     { url: `${baseUrl}/`, lastModified: new Date().toISOString() },
     { url: `${baseUrl}/all_matches`, lastModified: new Date().toISOString() },
-    { url: `${baseUrl}/profile`, lastModified: new Date().toISOString() },
     { url: `${baseUrl}/about`, lastModified: new Date().toISOString() },
     { url: `${baseUrl}/contact-us`, lastModified: new Date().toISOString() },
     { url: `${baseUrl}/forgot-password`, lastModified: new Date().toISOString() },

@@ -14,13 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Next JS",
-  description: "Nextjs description",
+  title: "The Ultimate Betting Tips & Predictions Platform",
+  description: "Get expert betting tips, accurate match predictions, and today's top picks with our flairtips platform. Stay ahead with real-time updates and winning insights for all your favorite matches.",
   keywords: ["betting", "Tips", "predictions", "todays predictions", "Todays tips", "Todays matches"],
   alternates: {
-    canonical: "hhttps://nextjs.com",
+    canonical: "https://flairtips.com",
     languages: {
-      "en-US": "https://nextjs.com/",
+      "en-US": "https://flairtips.com/",
     },
   },
   robots: {
@@ -28,28 +28,28 @@ export const metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Nextjs",
+    title: "The Ultimate Betting Tips & Predictions Platform",
     description:
-      "Nextjs Predictions",
-    url: "https://nextjs.com",
+      "Get expert betting tips, accurate match predictions, and today's top picks with our flairtips platform. Stay ahead with real-time updates and winning insights for all your favorite matches.",
+    url: "https://flairtips.com",
     type: "website",
     images: [
       {
-        url: "https://nextjs.com/favicon.ico",
+        url: "https://flairtips.com/favicon.ico",
         width: 1200,
         height: 630,
-        alt: "Nextjs",
+        alt: "Flairtips",
       },
     ],
   },
   twitter: {
-    card: "Nextjs",
-    title: "Flaitips Predictions",
-    site:  "https://nextjs.com",
+    card: "summary_large_image",
+    title: "The Ultimate Betting Tips & Predictions Platform",
+    site:  "https://flairtips.com",
     description:
-      "Nextjs Predictions",
+      "Get expert betting tips, accurate match predictions, and today's top picks with our flairtips platform. Stay ahead with real-time updates and winning insights for all your favorite matches.",
     images: [
-      "https://nextjs.com/favicon.ico",
+      "https://flairtips.com/flair.webp",
     ],
   },
 };
