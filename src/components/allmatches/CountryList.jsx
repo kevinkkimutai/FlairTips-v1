@@ -18,6 +18,9 @@ export default function CountryList({handleCountryFilter}) {
           COUNTRIES
         </div>
         <div className='overflow-scroll max-h-[95vh] flex flex-col  gap-4'>
+          <div  onClick={() => handleCountryFilter("")} className='flex items-center gap-4 bg-white p-4 text-center justify-center font-bold rounded-lg shadow-md hover:shadow-lg transition-shadow'>
+            All
+          </div>
       {countries?.map((country) => (
         <div
           key={country.id}

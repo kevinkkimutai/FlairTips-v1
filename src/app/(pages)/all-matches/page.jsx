@@ -34,7 +34,7 @@ export default function Page() {
   const range = [
     { label: "Yesterday", date: yesterday },
     { label: "Today", date: new Date(today) },
-    { label: "Tomorrow", date: new Date(today.getTime() + 24 * 60 * 60 * 1000) },
+    // { label: "Tomorrow", date: new Date(today.getTime() + 24 * 60 * 60 * 1000) },
   ];
 
   dates.push(...range.map((item) => item.date));
@@ -107,6 +107,7 @@ export default function Page() {
       );
       setTotalPages(1);
 
+console.log("user", user);
 
       // Fetch subscriber predictions if user is subscribed
       if (user?.is_subscribed === 1) {
@@ -165,14 +166,14 @@ const handleCountryFilter = (countryName) => {
 
   return (
     <div className="py- lg:py-5 max-md:px-0 max-2xl:px-4">
-      <div className="flex gap-4 mt-5 md:mt-10">
+      <div className="flex gap-4 mt-5 md:mt-2">
         {/* Sidebar */}
         <div className="md:w-[20%] max-md:hidden mt-0">
           <CountryList handleCountryFilter={handleCountryFilter} />
         </div>
 
         {/* Main Section */}
-        <div className="md:w-[80%] md:sticky md:top-2 p-2 overflow-hidden">
+        <div className="md:w-[80%] md:sticky md:top-2 p-2 overflow-hidden ">
           <MatchesNavigation
             activeDate={activeDate}
             setActiveDate={setActiveDate}
@@ -181,7 +182,7 @@ const handleCountryFilter = (countryName) => {
             formatDate={formatDate}
           />
           <div
-            className="mt-5 md:mt-6 h-[95vh] overflow-scroll hide-scrollbar"
+            className="mt-5 md:mt-5 h-[95vh] overflow-scroll hide-scrollbar"
             ref={containerRef}
           >
             {/* <MatchesSection /> */}
