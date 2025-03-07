@@ -109,8 +109,6 @@ export default function Page() {
       );
       setTotalPages(1);
 
-console.log("user", user);
-console.log("subscription", subscription.is_subscribed);
 
 
       // Fetch subscriber predictions if user is subscribed
