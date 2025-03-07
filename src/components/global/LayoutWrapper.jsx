@@ -29,6 +29,8 @@ export default function LayoutWrapper({ children }) {
   const [subscriptionDetails] = useGetSubscriptionMutation();
   const dispatch = useDispatch();
 
+  
+
   useEffect(() => {
     const fetchSubscription= async () => {
       const requestBody = {

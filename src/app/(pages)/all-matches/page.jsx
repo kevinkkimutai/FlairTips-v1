@@ -14,6 +14,7 @@ import {
 import { selectUser } from "@/redux/reducers/AuthReducers";
 import { setCountries } from "@/redux/reducers/countryReducers";
 import { setPublicPredictions } from "@/redux/reducers/publicPredictionsReducers";
+import { selectSubscription } from "@/redux/reducers/subscriptionReducers";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -53,6 +54,7 @@ export default function Page() {
   const [publicPredictions] = useGetPublicPredictionsMutation();
   const [subscriberPredictions] = useGetSubscriberFixesMutation();
   const [getCountries] = useGetCountriesMutation();
+  const subscription = useSelector(selectSubscription);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [pagenumber, setPagenumber] = useState(1);
@@ -108,9 +110,11 @@ export default function Page() {
       setTotalPages(1);
 
 console.log("user", user);
+console.log("subscription", subscription.is_subscribed);
+
 
       // Fetch subscriber predictions if user is subscribed
-      if (user?.is_subscribed === 1) {
+      if (subscription?.is_subscribed === 1) {
         const subscriberResponse = await subscriberPredictions(subsrequestBody).unwrap();
         dispatch(
           setPublicPredictions({
@@ -128,7 +132,7 @@ console.log("user", user);
   };
 
   fetchData();
-}, [getCountries, activeDate, pagenumber, countryFilter, user?.is_subscribed]);
+}, [getCountries, activeDate, pagenumber, countryFilter, user?.is_subscribed, subscription]);
 
 const handleCountryFilter = (countryName) => {
   setCountryFilter(countryName);
