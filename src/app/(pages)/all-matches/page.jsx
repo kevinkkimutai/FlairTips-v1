@@ -123,7 +123,7 @@ export default function Page() {
         setTotalPages(subscriberResponse.count);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      // console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
@@ -140,7 +140,7 @@ const handleCountryFilter = (countryName) => {
     const handleScroll = () => {
       if (containerRef.current) {
         const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-        const triggerPoint = scrollHeight * 0.95; // Load when 75% scrolled
+        const triggerPoint = scrollHeight * 0.95; 
   
         if (scrollTop + clientHeight >= triggerPoint) {
           setPagenumber((prev) => {
