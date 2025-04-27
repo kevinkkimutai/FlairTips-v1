@@ -1,58 +1,35 @@
 "use client";
-import { useLoginUserMutation } from "@/redux/actions/authActions";
-import { setUser } from "@/redux/reducers/AuthReducers";
-import Cookies from "js-cookie";
-import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux"; 
+import Link from "next/link";
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [loginUser] = useLoginUserMutation();
+  const [error, setError] = useState(null);
+
   const router = useRouter();
-  const dispatch = useDispatch(); 
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect') || '/';
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setError(null);
 
-    const requestBody = {
-      request: {
-        request_id: Date.now(),
-        data: {
-          identity: email,
-          password: password,
-        },
-      },
-    };
+    const result = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+    });
 
-    try {
-      const response = await loginUser(requestBody).unwrap();
-      // Save token to cookies
-      Cookies.set("access_token", response.data.access_token, { 
-        expires: 1/24, 
-        secure: true, 
-        sameSite: "Strict",
-      });
-      localStorage.setItem("login_time", Date.now());
-      
-      // Dispatch setUser to update Redux state
-      dispatch(setUser(response.data));
-      console.log("Login successful:", response);
-      router.push(redirect);
-    } catch (err) {
-      toast.error(err?.data?.message || "Invalid email or password");
-    } finally {
-      setLoading(false);
+    if (result.error) {
+      setError('Invalid email or password');
+      console.error('Login failed', result);
+    } else {
+      router.push('/'); 
     }
   };
 

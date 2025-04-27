@@ -20,15 +20,15 @@ export default function DetailsSection({ user, handleOpenModal }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
           <div>
             <label htmlFor="first_name" className="text-gray-700">First Name</label>
-            <p className="py-2">{user?.first_name}</p>
+            <p className="py-2">{user?.firstName}</p>
           </div>
           <div>
             <label htmlFor="middle_name" className="text-gray-700">Middle Name</label>
-            <p className="py-2">{user?.middle_name || "N/A"}</p>
+            <p className="py-2">{user?.middleName || "N/A"}</p>
           </div>
           <div>
             <label htmlFor="last_name" className="text-gray-700">Last Name</label>
-            <p className="py-2">{user?.last_name}</p>
+            <p className="py-2">{user?.lastName}</p>
           </div>
           <div>
             <label htmlFor="email" className="text-gray-700">Email</label>

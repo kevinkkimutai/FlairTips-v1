@@ -15,32 +15,28 @@ import { selectUser } from "@/redux/reducers/AuthReducers";
 import { setCountries } from "@/redux/reducers/countryReducers";
 import { setPublicPredictions } from "@/redux/reducers/publicPredictionsReducers";
 import { selectSubscription } from "@/redux/reducers/subscriptionReducers";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Page() {
+  // Date initialization (unchanged from your original code)
   const dates = [];
   const today = new Date();
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
 
-  // Add previous dates
   for (let i = 2; i > 0; i--) {
     const newDate = new Date(yesterday);
     newDate.setDate(yesterday.getDate() - i);
     dates.push(newDate);
   }
 
-  // Add yesterday, today, and tomorrow
   const range = [
     { label: "Yesterday", date: yesterday },
     { label: "Today", date: new Date(today) },
-    // { label: "Tomorrow", date: new Date(today.getTime() + 24 * 60 * 60 * 1000) },
   ];
-
   dates.push(...range.map((item) => item.date));
 
-  // Helper function to format date as "YYYY-MM-DD"
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -58,32 +54,26 @@ export default function Page() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [pagenumber, setPagenumber] = useState(1);
-  const [totalPages, setTotalPages] = useState();
+  const [totalPages, setTotalPages] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [showEndMessage, setShowEndMessage] = useState(false);
   const containerRef = useRef(null);
+  const isInitialMount = useRef(true);
 
- useEffect(() => {
-  const fetchData = async () => {
+  const fetchData = useCallback(async (page = 1, isInitialLoad = false) => {
+    if (loading || (page > totalPages && !isInitialLoad && totalPages > 0)) return;
+    
     try {
       setLoading(true);
+      setShowEndMessage(false);
 
-      const pubsRequestBody = {
+      const requestBody = {
         request: {
           request_id: Date.now(),
           data: {
             date: String(activeDate),
             type: "all",
-            page: 1,
-            country: String(countryFilter),
-          },
-        },
-      };
-      const subsrequestBody = {
-        request: {
-          request_id: Date.now(),
-          data: {
-            date: String(activeDate),
-            type: "all",
-            page: pagenumber,
+            page: page,
             country: String(countryFilter),
           },
         },
@@ -96,86 +86,84 @@ export default function Page() {
         },
       };
 
-        // Fetch countries
+      if (isInitialLoad) {
         const country = await getCountries(countryRequestBody).unwrap();
         dispatch(setCountries(country));
-      // Fetch public predictions
-      const publicResponse = await publicPredictions(pubsRequestBody).unwrap();
+      }
+
+      let response;
+      if (subscription?.is_subscribed === 1) {
+        response = await subscriberPredictions(requestBody).unwrap();
+      } else {
+        response = await publicPredictions(requestBody).unwrap();
+      }
+
       dispatch(
         setPublicPredictions({
-          publicpredictions: publicResponse.data,
-          page: 1,
+          publicpredictions: response.data,
+          page: page,
+          append: !isInitialLoad
         })
       );
-      setTotalPages(1);
 
+      if (isInitialLoad) {
+        setTotalPages(response.count || 1);
+        setHasMore(response.count > 1);
+      } else {
+        setHasMore(page < response.count);
+      }
 
-
-      // Fetch subscriber predictions if user is subscribed
-      if (subscription?.is_subscribed === 1) {
-        const subscriberResponse = await subscriberPredictions(subsrequestBody).unwrap();
-        dispatch(
-          setPublicPredictions({
-            publicpredictions: subscriberResponse.data,
-            page: pagenumber,
-          })
-        );
-        setTotalPages(subscriberResponse.count);
+      // Automatically load next page if there's more content
+      if (page < response.count) {
+        setPagenumber(page + 1);
+      } else {
+        setShowEndMessage(true);
       }
     } catch (error) {
-      // console.error("Error fetching data:", error);
+      console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [activeDate, countryFilter, loading, subscription, totalPages]);
 
-  fetchData();
-}, [getCountries, activeDate, pagenumber, countryFilter, user?.is_subscribed, subscription]);
-
-const handleCountryFilter = (countryName) => {
-  setCountryFilter(countryName);
-};
-
+  // Initial load and when filters change
   useEffect(() => {
-    const handleScroll = () => {
-      if (containerRef.current) {
-        const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-        const triggerPoint = scrollHeight * 0.95; 
-  
-        if (scrollTop + clientHeight >= triggerPoint) {
-          setPagenumber((prev) => {
-            if (prev < totalPages) {
-              return prev + 1;
-            }
-            return prev; 
-          });
-        }
+    setPagenumber(1);
+    fetchData(1, true);
+    isInitialMount.current = false;
+  }, [activeDate, countryFilter, subscription]);
+
+  // Handle automatic loading when content is too short
+  useEffect(() => {
+    if (isInitialMount.current || loading || !hasMore) return;
+
+    const checkContentHeight = () => {
+      if (!containerRef.current) return;
+
+      const { scrollHeight, clientHeight } = containerRef.current;
+      if (scrollHeight <= clientHeight * 1.5) {
+        setPagenumber(prev => prev + 1);
       }
     };
-  
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-    }
-  
-    return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, [pagenumber, totalPages]);
-  
+
+    const timer = setTimeout(checkContentHeight, 300);
+    return () => clearTimeout(timer);
+  }, [loading, hasMore, pagenumber]);
+
+  const handleCountryFilter = (countryName) => {
+    setCountryFilter(countryName);
+  };
 
   return (
     <div className="py- lg:py-5 max-md:px-0 max-2xl:px-4">
       <div className="flex gap-4 mt-5 md:mt-2">
         {/* Sidebar */}
         <div className="md:w-[20%] max-md:hidden mt-0">
-          <CountryList handleCountryFilter={handleCountryFilter} />
+          <CountryList loading={loading} handleCountryFilter={handleCountryFilter} />
         </div>
 
         {/* Main Section */}
-        <div className="md:w-[80%] md:sticky md:top-2 p-2 overflow-hidden ">
+        <div className="md:w-[80%] md:sticky md:top-2 p-2 overflow-hidden">
           <MatchesNavigation
             activeDate={activeDate}
             setActiveDate={setActiveDate}
@@ -187,17 +175,17 @@ const handleCountryFilter = (countryName) => {
             className="mt-5 md:mt-5 h-[95vh] overflow-scroll hide-scrollbar"
             ref={containerRef}
           >
-            {/* <MatchesSection /> */}
             <h2 className="mb-2 font-bold text-[14px] max-lg:text-[12px]">
               All Matches
             </h2>
-            <AllMatches
-              activeDate={activeDate}
-              setPagenumber={setPagenumber}
-              pagenumber={pagenumber}
-              loading={loading}
-              totalPages={totalPages}
-            />
+            <AllMatches loading={loading} activeDate={activeDate} pagenumber={pagenumber} />
+            
+            {/* "No more matches" message */}
+            {showEndMessage && pagenumber > 1 && (
+              <div className="text-center py-4 text-gray-500">
+                No more matches to load
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -8,37 +8,24 @@ import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { selectSubscription } from "@/redux/reducers/subscriptionReducers";
 import Image from "next/image";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const user = useSelector(selectUser);
   const subscription = useSelector(selectSubscription);
-  const [currentUser] = useGetCurrentUserMutation();
   const dispatch = useDispatch();
 
+  const { data: session } = useSession();
+  const user = useSelector((state) => state.auth.user);
 
+  console.log("log", user);
+  
   useEffect(() => {
-    const fetchUser = async () => {
-      const requestBody = {
-        request: {
-          request_id: Date.now(),
-          data: {},
-        },
-      };
+    if (session?.user) {
+      dispatch(setUser(session.user));
+    }
+  }, [session, dispatch]);
 
-      try {
-        // Fetch user details
-        const response = await currentUser(requestBody).unwrap();
-        console.log("User details fetched", response);
-        dispatch(setUser(response.data));
-
-      } catch (error) {
-        console.log("Please log in.", error);
-      }
-    };
-
-    fetchUser();
-  }, [currentUser, dispatch]);
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -71,8 +58,7 @@ export default function Navbar() {
   ];
 
   const handleLogout = () => {
-    dispatch(logOut());
-    window.location.href = "/"; 
+    signOut();
   };
 
 
@@ -153,7 +139,7 @@ export default function Navbar() {
                 
                   className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-black text-[15px] flex items-center"
                 >
-                  {user?.first_name || "User"}
+                  {user?.firstName || "User"}
 
                   <svg
                     className="w-6 h-6 ms-2 text-black"
@@ -214,7 +200,7 @@ export default function Navbar() {
                   <li className="border-b py-3">
                     {user ? (
                       <button 
-                        onClick={handleLogout}
+                      onClick={() => signOut({ callbackUrl: "/" })} 
                         className="hover:text-[#8fc1f6] hover:fill-[#8fc1f6] text-black text-[15px] flex items-center"
                       >
                         <svg

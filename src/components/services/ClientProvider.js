@@ -1,9 +1,9 @@
 "use client"; 
 import { Provider, useDispatch } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react"
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { persistor, store } from "@/store/store";
+import { SessionProvider } from "next-auth/react";
 
 
 export default function ClientProvider({ children }) {
@@ -11,9 +11,7 @@ export default function ClientProvider({ children }) {
 
   return (
     <Provider store={store}>
-    
-        {/* You can add a loading spinner or any fallback UI here */}
-        <PersistGate loading={null} persistor={persistor}>
+    <SessionProvider>
           {children}
           <ToastContainer
             position="top-right"
@@ -21,8 +19,8 @@ export default function ClientProvider({ children }) {
             hideProgressBar={true}
             theme="light"
           />
-        </PersistGate>
-      
+   
+        </SessionProvider>
     </Provider>
   );
 }

@@ -1,18 +1,9 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
+  "/[...nextauth]/route": "app/[...nextauth]/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/api/route": "app/api/route.js",
-  "/(pages)/(auth)/forgot-password/page": "app/(pages)/(auth)/forgot-password/page.js",
-  "/(pages)/(auth)/register/page": "app/(pages)/(auth)/register/page.js",
   "/(pages)/(auth)/login/page": "app/(pages)/(auth)/login/page.js",
-  "/(pages)/(auth)/reset-password/page": "app/(pages)/(auth)/reset-password/page.js",
   "/(pages)/all-matches/page": "app/(pages)/all-matches/page.js",
-  "/(pages)/fixture/[id]/page": "app/(pages)/fixture/[id]/page.js",
-  "/page": "app/page.js",
-  "/(pages)/subscription/page": "app/(pages)/subscription/page.js",
-  "/(pages)/profile/page": "app/(pages)/profile/page.js",
-  "/(pages)/contact-us/page": "app/(pages)/contact-us/page.js",
-  "/(pages)/about/page": "app/(pages)/about/page.js",
-  "/(pages)/pricing/page": "app/(pages)/pricing/page.js",
-  "/(pages)/privacy-policy/page": "app/(pages)/privacy-policy/page.js"
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(pages)/profile/page": "app/(pages)/profile/page.js"
 }

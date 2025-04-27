@@ -56,7 +56,7 @@ export default function DeleteUser({ user, deleteAccount }) {
         <p className="mt-2 text-gray-700">This will permanently delete your account and data.</p>
 
         <p className="mt-4 text-sm font-semibold text-gray-800">
-          To confirm, type <span className="bg-gray-200 px-4 py-1 rounded-md">{user?.first_name}</span> below:
+          To confirm, type <span className="bg-gray-200 px-4 py-1 rounded-md">{user?.firstName}</span> below:
         </p>
 
         <input

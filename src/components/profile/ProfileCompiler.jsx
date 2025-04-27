@@ -13,9 +13,10 @@ import { toast } from "react-toastify";
 import UpdateFormModal from "./UpdateFormModal";
 
 export default function ProfileCompiler() {
-  const user = useSelector(selectUser);
+  
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const user = useSelector(selectUser);
 
   // State for form data
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ export default function ProfileCompiler() {
       setFormData({
         email: user.email || "N/A",
         phone: user.phone || "N/A",
-        full_name: `${user.first_name} ${user.middle_name || ""} ${user.last_name}`.trim(),
+        full_name: `${user.firstName} ${user.middleName || ""} ${user.lastName}`.trim(),
       });
     }
   }, [user]); // Runs whenever `user` updates
@@ -84,7 +85,7 @@ export default function ProfileCompiler() {
     setFormData({
       email: user?.email || "",
       phone: user?.phone || "",
-      full_name: `${user?.first_name} ${user?.middle_name || ""} ${user?.last_name}`.trim(),
+      full_name: `${user?.firstName} ${user?.middleName || ""} ${user?.lastName}`.trim(),
     });
   };
 

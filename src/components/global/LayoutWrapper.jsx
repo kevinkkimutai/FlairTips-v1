@@ -8,9 +8,10 @@ import SuscriptionModal from "./SuscriptionModal";
 import LoginModal from "./LoginModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "@/redux/reducers/AuthReducers";
 import useAuthTimeout from "@/utils/useAuthTimeout";
 import { selectSubscription, setSubscription } from "@/redux/reducers/subscriptionReducers";
+import { useSession } from "next-auth/react";
+import { setUser } from "@/redux/reducers/AuthReducers";
 import { useGetSubscriptionMutation } from "@/redux/actions/subscriptionActions";
 
 
@@ -24,13 +25,22 @@ export default function LayoutWrapper({ children }) {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [timerActive, setTimerActive] = useState(false);
 
-  const user = useSelector(selectUser);
+
   const subscription = useSelector(selectSubscription);
   const [subscriptionDetails] = useGetSubscriptionMutation();
   const dispatch = useDispatch();
 
-  
+  const { data: session } = useSession();
+  const user = useSelector((state) => state.auth.user);
 
+  console.log("log", user);
+  
+  useEffect(() => {
+    if (session?.user) {
+      dispatch(setUser(session.user));
+    }
+  }, [session, dispatch]);
+  
   useEffect(() => {
     const fetchSubscription= async () => {
       const requestBody = {

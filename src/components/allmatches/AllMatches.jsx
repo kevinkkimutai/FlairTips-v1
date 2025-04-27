@@ -48,6 +48,27 @@ export default function AllMatches({ activeDate, loading }) {
     );
   };
 
+  if (loading) {
+    return (
+      <div>
+        {/* Skeleton Loader */}
+        <div className="animate-pulse">
+          {[...Array(3)].map((_, index) => (
+            <div key={index} className="mb-4 shadow bg-gray-200 rounded-md">
+              <div className="h-12 bg-gray-300 rounded-t-md"></div>
+              <div className="p-4 space-y-3">
+                <div className="h-6 bg-gray-300 rounded"></div>
+                <div className="h-5 bg-gray-300 rounded"></div>
+                <div className="h-5 bg-gray-300 rounded"></div>
+                <div className="h-6 bg-gray-300 rounded"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (!pPredictions || pPredictions.length === 0) {
     return <div>No matches available for the selected date.</div>;
   }

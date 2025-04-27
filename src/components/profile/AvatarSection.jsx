@@ -21,13 +21,13 @@ export default function AvatarSection({ user }) {
         <Image
             src={user?.avatar || '/globe.svg'}
             className="rounded-full h-[100px] bg-red-100 object-cover "
-            alt={user?.first_name + "username"}
+            alt={user?.firstName + "username"}
             width={100}
             height={100}
             priority
           />
      
-          <div className="mt-5">{user?.first_name} { user?.last_name}</div>
+          <div className="mt-5">{user?.firstName} { user?.lastName}</div>
          </div>
 
          {/* subscription section */}
